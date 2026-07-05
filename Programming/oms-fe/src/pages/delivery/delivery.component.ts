@@ -29,8 +29,8 @@ export class DeliveryComponent implements OnInit {
   toastType: 'error' | 'success' = 'success';
 
   deliveryForm: FormGroup = this.fb.group({
-    receiverName: ['', Validators.required],
-    phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10,11}$')]],
+    receiverName: ['Hoàng Anh Điệp', Validators.required],
+    phoneNumber: ['0986171335', [Validators.required, Validators.pattern('^[0-9]{10,11}$')]],
     email: ['', [Validators.required, Validators.email]],
     address: ['', Validators.required],
     city: ['', Validators.required],

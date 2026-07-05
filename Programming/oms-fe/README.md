@@ -1,59 +1,59 @@
 # OMS-FE
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.10.
+Dự án này được tạo bằng [Angular CLI](https://github.com/angular/angular-cli) phiên bản 21.2.10.
 
-## Development server
+## Máy chủ phát triển (Development server)
 
-To start a local development server, run:
+Để khởi động máy chủ phát triển cục bộ, hãy chạy:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Sau khi máy chủ khởi chạy, hãy mở trình duyệt và truy cập `http://localhost:4200/`. Ứng dụng sẽ tự động tải lại mỗi khi bạn thay đổi các tệp nguồn.
 
-## Code scaffolding
+## Tạo mã nguồn mẫu (Code scaffolding)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Angular CLI cung cấp các công cụ tạo mã nguồn mạnh mẽ. Để tạo một component mới, hãy chạy:
 
 ```bash
 ng generate component component-name
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Để xem danh sách đầy đủ các sơ đồ có sẵn (chẳng hạn như `components`, `directives`, hoặc `pipes`), hãy chạy:
 
 ```bash
 ng generate --help
 ```
 
-## Building
+## Biên dịch (Building)
 
-To build the project run:
+Để biên dịch dự án, hãy chạy:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Lệnh này sẽ biên dịch dự án và lưu trữ các sản phẩm biên dịch trong thư mục `dist/`. Theo mặc định, bản biên dịch production sẽ tối ưu hóa ứng dụng để đạt hiệu năng và tốc độ tải tốt nhất.
 
-## Running unit tests
+## Chạy kiểm thử đơn vị (Running unit tests)
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Để thực hiện kiểm thử đơn vị với trình chạy thử [Vitest](https://vitest.dev/), hãy sử dụng lệnh sau:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+## Chạy kiểm thử đầu cuối (Running end-to-end tests)
 
-For end-to-end (e2e) testing, run:
+Để chạy kiểm thử đầu cuối (e2e), hãy chạy:
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Angular CLI không đi kèm sẵn khung kiểm thử đầu cuối mặc định. Bạn có thể chọn khung kiểm thử phù hợp nhất với nhu cầu của mình.
 
-## Additional Resources
+## Tài nguyên bổ sung (Additional Resources)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Để biết thêm thông tin về cách sử dụng Angular CLI, bao gồm các tài liệu tham khảo chi tiết về lệnh, hãy truy cập trang [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli).

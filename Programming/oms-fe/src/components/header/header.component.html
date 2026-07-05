@@ -1,6 +1,6 @@
 <header class="aims-header">
       @if (isAdminSession()) {
-        <span class="logo-placeholder logo-disabled">AIMS</span>
+        <span class="logo-placeholder logo-disabled">OMS</span>
         @if (!isLoginPage()) {
           <nav class="nav-links">
             <span class="nav-link-disabled">Trang chủ</span>
@@ -21,7 +21,7 @@
           <button type="button" class="logout-btn" (click)="onLogout()">Đăng xuất</button>
         </div>
       } @else {
-        <a class="logo-placeholder" routerLink="/">AIMS</a>
+        <a class="logo-placeholder" routerLink="/">OMS</a>
         @if (!isLoginPage()) {
           <nav class="nav-links">
             <a routerLink="/">Trang chủ</a>
