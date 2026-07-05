@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "aims-fe": {
+    "oms-fe": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -57,10 +57,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "aims-fe:build:production"
+              "buildTarget": "oms-fe:build:production"
             },
             "development": {
-              "buildTarget": "aims-fe:build:development"
+              "buildTarget": "oms-fe:build:development"
             }
           },
           "defaultConfiguration": "development"
