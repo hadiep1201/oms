@@ -1,9 +1,9 @@
 <div class="user-detail-container" *ngIf="user">
   <div class="header">
-    <h2>User Profile</h2>
+    <h2>Hồ sơ người dùng</h2>
     <div>
-      <button class="btn btn-outline" routerLink="/admin/users">Back to List</button>
-      <button class="btn btn-primary" [routerLink]="['/admin/users/edit', user.userId]" style="margin-left: 10px;">Edit Basic Info</button>
+      <button class="btn btn-outline" routerLink="/admin/users">Quay lại danh sách</button>
+      <button class="btn btn-primary" [routerLink]="['/admin/users/edit', user.userId]" style="margin-left: 10px;">Sửa thông tin cơ bản</button>
     </div>
   </div>
 
@@ -20,27 +20,27 @@
     <hr class="divider" />
 
     <div class="advanced-actions">
-      <h3>Advanced Actions</h3>
-      <p class="description">Administrative actions for managing this user account.</p>
+      <h3>Hành động nâng cao</h3>
+      <p class="description">Các hành động quản trị để quản lý tài khoản người dùng này.</p>
       
       <div class="action-grid">
         <div class="action-card">
-          <h4>Security</h4>
-          <p>Reset or change the user's password.</p>
-          <button class="btn btn-action" (click)="notImplemented('Change Password')">Change Password</button>
+          <h4>Bảo mật</h4>
+          <p>Đặt lại hoặc thay đổi mật khẩu người dùng.</p>
+          <button class="btn btn-action" (click)="notImplemented('Đổi mật khẩu')">Đổi mật khẩu</button>
         </div>
 
         <div class="action-card">
-          <h4>Roles & Permissions</h4>
-          <p>Assign or modify user roles.</p>
-          <button class="btn btn-action" (click)="notImplemented('Set User Roles')">Manage Roles</button>
+          <h4>Vai trò & Quyền</h4>
+          <p>Gán hoặc sửa đổi vai trò người dùng.</p>
+          <button class="btn btn-action" (click)="notImplemented('Quản lý vai trò')">Quản lý vai trò</button>
         </div>
 
         <div class="action-card">
-          <h4>Account Status</h4>
-          <p>Block or unblock access to the system.</p>
-          <button class="btn btn-danger" (click)="notImplemented('Block/Unblock User')">
-            {{ user.status === 'ACTIVE' ? 'Block User' : 'Unblock User' }}
+          <h4>Trạng thái tài khoản</h4>
+          <p>Khóa hoặc mở khóa quyền truy cập hệ thống.</p>
+          <button class="btn btn-danger" (click)="notImplemented('Khóa/Mở khóa')">
+            {{ user.status === 'ACTIVE' ? 'Khóa người dùng' : 'Mở khóa người dùng' }}
           </button>
         </div>
       </div>
@@ -49,5 +49,5 @@
 </div>
 
 <div class="user-detail-container" *ngIf="loading">
-  <p>Loading user details...</p>
+  <p>Đang tải chi tiết người dùng...</p>
 </div>

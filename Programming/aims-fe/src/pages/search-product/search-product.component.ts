@@ -113,10 +113,10 @@ export class SearchProductComponent implements OnInit {
         this.cartService.addDetailToCart(res.result).then((result) => {
           this.loading.set(false);
           if (result.ok) {
-            this.showToast(`Added "${item.title}" to cart!`);
+            this.showToast(`Đã thêm "${item.title}" vào giỏ hàng!`);
             return;
           }
-          this.showToast(result.message ?? 'Cannot add this item to cart.');
+          this.showToast(result.message ?? 'Không thể thêm sản phẩm này vào giỏ hàng.');
         });
       },
       error: (err: any) => {
@@ -125,10 +125,10 @@ export class SearchProductComponent implements OnInit {
         this.cartService.addDetailToCart(item).then((result) => {
           this.loading.set(false);
           if (result.ok) {
-            this.showToast(`Added "${item.title}" to cart!`);
+            this.showToast(`Đã thêm "${item.title}" vào giỏ hàng!`);
             return;
           }
-          this.showToast(result.message ?? 'Cannot add this item to cart.');
+          this.showToast(result.message ?? 'Không thể thêm sản phẩm này vào giỏ hàng.');
         });
       }
     });

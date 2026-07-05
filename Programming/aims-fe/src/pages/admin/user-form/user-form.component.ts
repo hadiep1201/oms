@@ -47,7 +47,7 @@ export class UserFormComponent implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        alert('Failed to load user details');
+        alert('Tải thông tin chi tiết người dùng thất bại.');
         this.router.navigate(['/admin/users']);
       }
     });
@@ -64,7 +64,7 @@ export class UserFormComponent implements OnInit {
       this.userService.updateUser(this.userId, request).subscribe({
         next: () => this.router.navigate(['/admin/users']),
         error: (err) => {
-          this.errorMessage = err.error?.message || 'Failed to update user';
+          this.errorMessage = err.error?.message || 'Cập nhật thông tin người dùng thất bại.';
           this.cdr.detectChanges();
         }
       });
@@ -78,7 +78,7 @@ export class UserFormComponent implements OnInit {
       this.userService.createUser(request).subscribe({
         next: () => this.router.navigate(['/admin/users']),
         error: (err) => {
-          this.errorMessage = err.error?.message || 'Failed to create user';
+          this.errorMessage = err.error?.message || 'Tạo người dùng mới thất bại.';
           this.cdr.detectChanges();
         }
       });

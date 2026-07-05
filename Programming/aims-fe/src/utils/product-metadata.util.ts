@@ -7,33 +7,33 @@ export class ProductMetadataUtil {
   ]);
 
   private static readonly SPEC_LABELS: Record<string, string> = {
-    authors: 'AUTHOR',
-    publicationDate: 'PUBLICATION DATE',
-    pages: 'PAGES',
-    nbPages: 'PAGES',
-    publisher: 'PUBLISHER',
-    coverType: 'COVER',
-    genre: 'GENRE',
-    language: 'LANGUAGE',
-    artists: 'ARTISTS',
-    recordLabels: 'RECORD LABELS',
-    recordLabel: 'RECORD LABELS',
-    releaseDate: 'RELEASE DATE',
-    director: 'DIRECTOR',
-    discType: 'DISC TYPE',
-    runtime: 'RUNTIME',
-    studio: 'STUDIO',
-    subtitles: 'SUBTITLES',
-    editorInChief: 'EDITOR-IN-CHIEF',
-    issueNumber: 'ISSUE NUMBER',
-    publicationFrequency: 'FREQUENCY',
+    authors: 'TÁC GIẢ',
+    publicationDate: 'NGÀY XUẤT BẢN',
+    pages: 'SỐ TRANG',
+    nbPages: 'SỐ TRANG',
+    publisher: 'NHÀ XUẤT BẢN',
+    coverType: 'LOẠI BÌA',
+    genre: 'THỂ LOẠI',
+    language: 'NGÔN NGỮ',
+    artists: 'NGHỆ SĨ',
+    recordLabels: 'HÃNG ĐĨA',
+    recordLabel: 'HÃNG ĐĨA',
+    releaseDate: 'NGÀY PHÁT HÀNH',
+    director: 'ĐẠO DIỄN',
+    discType: 'LOẠI ĐĨA',
+    runtime: 'THỜI LƯỢNG',
+    studio: 'HÃNG PHIM',
+    subtitles: 'PHỤ ĐỀ',
+    editorInChief: 'TỔNG BIÊN TẬP',
+    issueNumber: 'SỐ BÁO',
+    publicationFrequency: 'ĐỊNH KỲ',
     issn: 'ISSN',
-    sections: 'SECTIONS',
-    tracksList: 'TRACKS LIST'
+    sections: 'CHUYÊN MỤC',
+    tracksList: 'DANH SÁCH BÀI HÁT'
   };
 
   private static readonly SPEC_SUFFIXES: Record<string, string> = {
-    runtime: ' MIN'
+    runtime: ' PHÚT'
   };
 
   static getDynamicTechnicalDetails(product: any): { label: string, value: any, isArray: boolean, isDate: boolean }[] {

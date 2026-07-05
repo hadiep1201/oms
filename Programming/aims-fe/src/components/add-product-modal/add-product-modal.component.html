@@ -3,13 +3,13 @@
         <header class="modal-header">
           <div>
             <h2 id="add-product-title" class="modal-title">
-              {{ mode() === 'edit' ? 'UPDATE PRODUCT' : 'ADD NEW PRODUCT' }}
+              {{ mode() === 'edit' ? 'CẬP NHẬT SẢN PHẨM' : 'THÊM SẢN PHẨM MỚI' }}
             </h2>
             <p class="modal-subtitle">
               {{
                 mode() === 'edit'
-                  ? 'Update product details in the inventory.'
-                  : 'Provide product details to add to the inventory.'
+                  ? 'Cập nhật thông tin chi tiết sản phẩm trong kho.'
+                  : 'Cung cấp thông tin chi tiết sản phẩm để thêm vào kho.'
               }}
             </p>
           </div>
@@ -19,71 +19,71 @@
         </header>
 
         <form class="modal-body" [formGroup]="form" (ngSubmit)="onSubmit()">
-          <p class="section-label">COMMON INFORMATION</p>
+          <p class="section-label">THÔNG TIN CHUNG</p>
 
           <div class="form-grid">
             <label class="field">
-              <span class="label">TITLE</span>
+              <span class="label">TIÊU ĐỀ</span>
               <input type="text" formControlName="title" />
             </label>
             <label class="field">
-              <span class="label">BARCODE</span>
+              <span class="label">MÃ VẠCH</span>
               <input type="text" formControlName="barcode" />
             </label>
 
             <label class="field">
-              <span class="label">ORIGINAL VALUE</span>
+              <span class="label">GIÁ GỐC</span>
               <input type="number" formControlName="originalValue" min="0" step="1000" />
             </label>
             <label class="field">
-              <span class="label">CURRENT VALUE</span>
+              <span class="label">GIÁ HIỆN TẠI</span>
               <input type="number" formControlName="currentPrice" min="0" step="1000" />
             </label>
 
             <label class="field">
-              <span class="label">WEIGHT (KG)</span>
+              <span class="label">TRỌNG LƯỢNG (KG)</span>
               <input type="number" formControlName="weight" min="0" step="0.01" />
             </label>
             <label class="field">
-              <span class="label">LENGTH (CM)</span>
+              <span class="label">CHIỀU DÀI (CM)</span>
               <input type="number" formControlName="length" min="0" step="0.01" />
             </label>
 
             <label class="field">
-              <span class="label">WIDTH (CM)</span>
+              <span class="label">CHIỀU RỘNG (CM)</span>
               <input type="number" formControlName="width" min="0" step="0.01" />
             </label>
             <label class="field">
-              <span class="label">HEIGHT (CM)</span>
+              <span class="label">CHIỀU CAO (CM)</span>
               <input type="number" formControlName="height" min="0" step="0.01" />
             </label>
 
             <label class="field">
-              <span class="label">STOCK</span>
+              <span class="label">TỒN KHO</span>
               <input type="number" formControlName="stockQuantity" min="0" step="1" />
             </label>
             <label class="field">
-              <span class="label">STATUS</span>
+              <span class="label">TRẠNG THÁI</span>
               <input type="text" formControlName="status" />
             </label>
 
             <label class="field field-full">
-              <span class="label">DESCRIPTION</span>
+              <span class="label">MÔ TẢ SẢN PHẨM</span>
               <textarea formControlName="generalDescription" rows="3"></textarea>
             </label>
 
             <label class="field">
-              <span class="label">CATEGORY</span>
+              <span class="label">DANH MỤC</span>
               <select formControlName="productType">
-                <option value="" disabled>Select category</option>
+                <option value="" disabled>Chọn danh mục</option>
                 @for (t of productTypes; track t.value) {
-                  <option [value]="t.value">{{ t.label }}</option>
+                  <option [value]="t.value">{{ t.value === 'BOOK' ? 'Sách' : t.value === 'NEWSPAPER' ? 'Báo chí' : t.value === 'CD' ? 'CD' : t.value === 'DVD' ? 'DVD' : t.label }}</option>
                 }
               </select>
             </label>
 
             <div class="field field-full image-field">
-              <span class="label">PRODUCT IMAGE</span>
+              <span class="label">ẢNH SẢN PHẨM</span>
               <div class="image-upload-row">
                 <input
                   #imageFileInput
@@ -99,7 +99,7 @@
                   (click)="imageFileInput.click()"
                   [disabled]="uploadingImage()"
                 >
-                  {{ uploadingImage() ? 'Uploading…' : 'Choose from device' }}
+                  {{ uploadingImage() ? 'Đang tải lên…' : 'Chọn từ thiết bị' }}
                 </button>
                 @if (form.controls.imageUrl.value) {
                   <img
@@ -112,58 +112,58 @@
               <input
                 type="text"
                 formControlName="imageUrl"
-                placeholder="Or paste image URL (https://...)"
+                placeholder="Hoặc dán link URL của ảnh (https://...)"
               />
             </div>
           </div>
 
           @if (selectedType()) {
             <p class="section-label section-label-detail">
-              DETAIL INFORMATION (EXAMPLE {{ detailLabel() }})
+              THÔNG TIN CHI TIẾT (LOẠI {{ detailLabel() === 'BOOK' ? 'SÁCH' : detailLabel() === 'NEWSPAPER' ? 'BÁO CHÍ' : detailLabel() }})
             </p>
 
             <div class="form-grid">
               @if (selectedType() === 'BOOK' || selectedType() === 'NEWSPAPER') {
                 <label class="field">
-                  <span class="label">PUBLICATION DATE</span>
+                  <span class="label">NGÀY XUẤT BẢN</span>
                   <input type="date" formControlName="publicationDate" />
                 </label>
                 <label class="field">
-                  <span class="label">LANGUAGE</span>
+                  <span class="label">NGÔN NGỮ</span>
                   <input type="text" formControlName="language" />
                 </label>
                 <label class="field field-full">
-                  <span class="label">PUBLISHER</span>
+                  <span class="label">NHÀ XUẤT BẢN</span>
                   <input type="text" formControlName="publisher" />
                 </label>
               }
 
               @if (selectedType() === 'BOOK') {
                 <label class="field">
-                  <span class="label">COVER TYPE</span>
+                  <span class="label">LOẠI BÌA</span>
                   <input type="text" formControlName="coverType" />
                 </label>
                 <label class="field">
-                  <span class="label">NUMBER OF PAGES</span>
+                  <span class="label">SỐ TRANG</span>
                   <input type="number" formControlName="nbPages" min="1" />
                 </label>
                 <label class="field field-full">
-                  <span class="label">GENRE</span>
+                  <span class="label">THỂ LOẠI</span>
                   <input type="text" formControlName="genre" />
                 </label>
               }
 
               @if (selectedType() === 'NEWSPAPER') {
                 <label class="field">
-                  <span class="label">EDITOR IN CHIEF</span>
+                  <span class="label">TỔNG BIÊN TẬP</span>
                   <input type="text" formControlName="editorInChief" />
                 </label>
                 <label class="field">
-                  <span class="label">ISSUE NUMBER</span>
+                  <span class="label">SỐ BÁO</span>
                   <input type="text" formControlName="issueNumber" />
                 </label>
                 <label class="field">
-                  <span class="label">FREQUENCY</span>
+                  <span class="label">ĐỊNH KỲ</span>
                   <input type="text" formControlName="publicationFrequency" />
                 </label>
                 <label class="field">
@@ -174,41 +174,41 @@
 
               @if (selectedType() === 'CD' || selectedType() === 'DVD') {
                 <label class="field">
-                  <span class="label">RELEASE DATE</span>
+                  <span class="label">NGÀY PHÁT HÀNH</span>
                   <input type="date" formControlName="releaseDate" />
                 </label>
               }
 
               @if (selectedType() === 'CD') {
                 <label class="field">
-                  <span class="label">ARTISTS</span>
+                  <span class="label">NGHỆ SĨ</span>
                   <input type="text" formControlName="artists" />
                 </label>
                 <label class="field">
-                  <span class="label">RECORD LABEL</span>
+                  <span class="label">HÃNG ĐĨA</span>
                   <input type="text" formControlName="recordLabel" />
                 </label>
               }
 
               @if (selectedType() === 'DVD') {
                 <label class="field">
-                  <span class="label">DISC TYPE</span>
+                  <span class="label">LOẠI ĐĨA</span>
                   <input type="text" formControlName="discType" />
                 </label>
                 <label class="field">
-                  <span class="label">DIRECTOR</span>
+                  <span class="label">ĐẠO DIỄN</span>
                   <input type="text" formControlName="director" />
                 </label>
                 <label class="field">
-                  <span class="label">RUNTIME (MIN)</span>
+                  <span class="label">THỜI LƯỢNG (PHÚT)</span>
                   <input type="number" formControlName="runtime" min="1" />
                 </label>
                 <label class="field">
-                  <span class="label">STUDIO</span>
+                  <span class="label">HÃNG PHIM</span>
                   <input type="text" formControlName="studio" />
                 </label>
                 <label class="field field-full">
-                  <span class="label">SUBTITLES</span>
+                  <span class="label">PHỤ ĐỀ</span>
                   <input type="text" formControlName="subtitles" />
                 </label>
               }
@@ -220,14 +220,14 @@
           }
 
           <footer class="modal-footer">
-            <button type="button" class="btn-secondary" (click)="close()">Cancel</button>
+            <button type="button" class="btn-secondary" (click)="close()">Hủy</button>
             <button type="submit" class="btn-primary" [disabled]="form.invalid || submitting() || loading()">
               {{
                 submitting()
-                  ? 'Saving...'
+                  ? 'Đang lưu...'
                   : mode() === 'edit'
-                    ? 'Save changes'
-                    : 'Save product'
+                    ? 'Lưu thay đổi'
+                    : 'Lưu sản phẩm'
               }}
             </button>
           </footer>

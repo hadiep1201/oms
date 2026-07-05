@@ -3,11 +3,11 @@
         <span class="logo-placeholder logo-disabled">AIMS</span>
         @if (!isLoginPage()) {
           <nav class="nav-links">
-            <span class="nav-link-disabled">Home</span>
-            <span class="nav-link-disabled">Books</span>
-            <span class="nav-link-disabled">Newspapers</span>
-            <span class="nav-link-disabled">CDs</span>
-            <span class="nav-link-disabled">DVDs</span>
+            <span class="nav-link-disabled">Trang chủ</span>
+            <span class="nav-link-disabled">Sách</span>
+            <span class="nav-link-disabled">Báo chí</span>
+            <span class="nav-link-disabled">CD</span>
+            <span class="nav-link-disabled">DVD</span>
           </nav>
         }
         <div class="header-actions">
@@ -18,30 +18,30 @@
             <span nz-icon nzType="user" nzTheme="outline"></span>
             <span class="manager-label">{{ managerLabel() }}</span>
           </div>
-          <button type="button" class="logout-btn" (click)="onLogout()">Logout</button>
+          <button type="button" class="logout-btn" (click)="onLogout()">Đăng xuất</button>
         </div>
       } @else {
         <a class="logo-placeholder" routerLink="/">AIMS</a>
         @if (!isLoginPage()) {
           <nav class="nav-links">
-            <a routerLink="/">Home</a>
+            <a routerLink="/">Trang chủ</a>
             @if (isManagerPage()) {
-              <a routerLink="/manager">Books</a>
-              <a routerLink="/manager">Newspapers</a>
-              <a routerLink="/manager">CDs</a>
-              <a routerLink="/manager">DVDs</a>
+              <a routerLink="/manager">Sách</a>
+              <a routerLink="/manager">Báo chí</a>
+              <a routerLink="/manager">CD</a>
+              <a routerLink="/manager">DVD</a>
             } @else {
-              <a routerLink="/search" [queryParams]="{keyword: 'Book', fromCategory: 'true'}">Books</a>
-              <a routerLink="/search" [queryParams]="{keyword: 'Newspaper', fromCategory: 'true'}">Newspapers</a>
-              <a routerLink="/search" [queryParams]="{keyword: 'CD', fromCategory: 'true'}">CDs</a>
-              <a routerLink="/search" [queryParams]="{keyword: 'DVD', fromCategory: 'true'}">DVDs</a>
+              <a routerLink="/search" [queryParams]="{keyword: 'Book', fromCategory: 'true'}">Sách</a>
+              <a routerLink="/search" [queryParams]="{keyword: 'Newspaper', fromCategory: 'true'}">Báo chí</a>
+              <a routerLink="/search" [queryParams]="{keyword: 'CD', fromCategory: 'true'}">CD</a>
+              <a routerLink="/search" [queryParams]="{keyword: 'DVD', fromCategory: 'true'}">DVD</a>
             }
           </nav>
         }
         <div class="header-actions">
           @if (isSearchPage()) {
             <div class="search-container">
-              <input #searchInput type="text" [value]="searchQuery()" placeholder="Search..." (keyup.enter)="onSearch(searchInput.value)" />
+              <input #searchInput type="text" [value]="searchQuery()" placeholder="Tìm kiếm..." (keyup.enter)="onSearch(searchInput.value)" />
               <button type="button" class="icon-btn" aria-label="Search" (click)="onSearch(searchInput.value)">
                 <span nz-icon nzType="search" nzTheme="outline"></span>
               </button>
@@ -53,13 +53,13 @@
           }
           @if (isManagerLoggedIn()) {
             @if (!isManagerPage()) {
-              <a routerLink="/manager" class="manager-portal-link">Manager</a>
+              <a routerLink="/manager" class="manager-portal-link">Trang Quản lý</a>
             }
             <div class="manager-user">
               <span nz-icon nzType="user" nzTheme="outline"></span>
               <span class="manager-label">{{ managerLabel() }}</span>
             </div>
-            <button type="button" class="logout-btn" (click)="onLogout()">Logout</button>
+            <button type="button" class="logout-btn" (click)="onLogout()">Đăng xuất</button>
           } @else if (!isLoginPage()) {
             <a routerLink="/cart" class="icon-btn" aria-label="Cart">🛒</a>
             <a routerLink="/login" class="icon-btn" aria-label="Account">

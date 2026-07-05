@@ -35,7 +35,7 @@ export class UserDetailComponent implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        alert('Failed to load user details');
+        alert('Tải thông tin chi tiết người dùng thất bại.');
         this.loading = false;
         this.cdr.detectChanges();
       }
@@ -43,6 +43,6 @@ export class UserDetailComponent implements OnInit {
   }
 
   notImplemented(action: string): void {
-    alert(`${action} functionality is not implemented in this scope.`);
+    alert(`Tính năng ${action} chưa được phát triển trong phạm vi này.`);
   }
 }

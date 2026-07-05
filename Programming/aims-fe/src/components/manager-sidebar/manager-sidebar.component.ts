@@ -21,10 +21,10 @@ export class ManagerSidebarComponent {
   collapsed = signal(false);
 
   navItems: ManagerNavItem[] = [
-    { label: 'Overview', route: '/manager', icon: 'home' },
-    { label: 'Product', route: '/manager/product', icon: 'appstore' },
-    { label: 'Order', route: '/manager/order', icon: 'audit' },
-    { label: 'History', route: '/manager/history', icon: 'history' },
+    { label: 'Tổng quan', route: '/manager', icon: 'home' },
+    { label: 'Sản phẩm', route: '/manager/product', icon: 'appstore' },
+    { label: 'Đơn hàng', route: '/manager/order', icon: 'audit' },
+    { label: 'Lịch sử', route: '/manager/history', icon: 'history' },
   ];
 
   toggle(): void {

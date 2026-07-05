@@ -45,12 +45,12 @@ import type { PaymentNavigationState } from '../../services/checkout-flow.servic
       <div class="steps-bar">
         <div class="step done">
           <span class="step-circle">1</span>
-          <span class="step-label">DELIVERY</span>
+          <span class="step-label">GIAO HÀNG</span>
         </div>
         <div class="step-connector"></div>
         <div class="step active">
           <span class="step-circle">2</span>
-          <span class="step-label">PAYMENT</span>
+          <span class="step-label">THANH TOÁN</span>
         </div>
       </div>
 
@@ -60,8 +60,8 @@ import type { PaymentNavigationState } from '../../services/checkout-flow.servic
         <div class="left-panel">
           <!-- Header -->
           <div class="panel-header">
-            <h2 class="panel-title">PAYMENT</h2>
-            <button class="back-btn" (click)="goBack()">back to...</button>
+            <h2 class="panel-title">THANH TOÁN</h2>
+            <button class="back-btn" (click)="goBack()">quay lại...</button>
           </div>
 
           <!-- Shipping summary card -->
@@ -80,7 +80,7 @@ import type { PaymentNavigationState } from '../../services/checkout-flow.servic
                 <circle cx="12" cy="9" r="2.5" />
               </svg>
               <div>
-                <p class="info-label">SHIPPING TO</p>
+                <p class="info-label">GIAO HÀNG ĐẾN</p>
                 <p class="info-value">{{ deliveryInfo?.address || '—' }}</p>
                 <p class="info-sub">{{ deliveryInfo?.city }}</p>
               </div>
@@ -102,9 +102,9 @@ import type { PaymentNavigationState } from '../../services/checkout-flow.servic
                 <circle cx="18.5" cy="18.5" r="2.5" />
               </svg>
               <div>
-                <p class="info-label">DELIVERY METHOD</p>
-                <p class="info-value">Standard shipping</p>
-                <p class="info-sub">Estimated delivery: 2-3 days</p>
+                <p class="info-label">PHƯƠNG THỨC GIAO HÀNG</p>
+                <p class="info-value">Giao hàng tiêu chuẩn</p>
+                <p class="info-sub">Thời gian dự kiến: 2-3 ngày</p>
               </div>
             </div>
           </div>
@@ -132,8 +132,8 @@ import type { PaymentNavigationState } from '../../services/checkout-flow.servic
                 </svg>
               </div>
               <div>
-                <p class="method-name">VIETQR (SCAN TO PAY)</p>
-                <p class="method-desc">Instant payment via your banking app</p>
+                <p class="method-name">VIETQR (QUÉT MÃ THANH TOÁN)</p>
+                <p class="method-desc">Thanh toán tức thì qua ứng dụng ngân hàng của bạn</p>
               </div>
             </div>
 
@@ -156,15 +156,15 @@ import type { PaymentNavigationState } from '../../services/checkout-flow.servic
                 </svg>
               </div>
               <div>
-                <p class="method-name">CREDIT CARD (PAYPAL)</p>
-                <p class="method-desc">Secure payment with your credit or debit card</p>
+                <p class="method-name">THẺ TÍN DỤNG (PAYPAL)</p>
+                <p class="method-desc">Thanh toán bảo mật bằng thẻ tín dụng hoặc thẻ ghi nợ</p>
               </div>
             </div>
           </div>
 
           <!-- QR code area (visible only for VietQR) -->
           <div *ngIf="selectedMethod === 'vietqr'" class="qr-area">
-            <div *ngIf="isLoadingQR" class="qr-loading">Generating QR code…</div>
+            <div *ngIf="isLoadingQR" class="qr-loading">Đang tạo mã QR…</div>
             <div *ngIf="qrError" class="qr-error">{{ qrError }}</div>
 
             <ng-container *ngIf="qrCode && !isLoadingQR">
@@ -182,7 +182,7 @@ import type { PaymentNavigationState } from '../../services/checkout-flow.servic
 
               <!-- Countdown timer (right of QR) -->
               <div class="timer-block">
-                <p class="timer-label">Remaining payment period</p>
+                <p class="timer-label">Thời gian thanh toán còn lại</p>
                 <p class="timer-value" [class.urgent]="timeLeft < 60">
                   {{ formatTime(timeLeft) }}
                 </p>
@@ -196,7 +196,7 @@ import type { PaymentNavigationState } from '../../services/checkout-flow.servic
             (click)="confirmVietQRPayment()"
             [disabled]="isProcessing || !qrCode"
           >
-            {{ isProcessing ? 'PROCESSING…' : 'I HAVE PAID' }}
+            {{ isProcessing ? 'ĐANG XỬ LÝ…' : 'TÔI ĐÃ THANH TOÁN' }}
           </button>
           <button
             *ngIf="selectedMethod === 'paypal'"
@@ -204,14 +204,14 @@ import type { PaymentNavigationState } from '../../services/checkout-flow.servic
             (click)="redirectToPayPal()"
             [disabled]="isProcessing"
           >
-            {{ isProcessing ? 'REDIRECTING…' : 'CONTINUE TO PAYPAL' }}
+            {{ isProcessing ? 'ĐANG CHUYỂN HƯỚNG…' : 'TIẾP TỤC VỚI PAYPAL' }}
           </button>
         </div>
 
         <!-- ────── RIGHT PANEL: Order Summary ────── -->
         <div class="right-panel">
           <div class="summary-card">
-            <p class="summary-title">ORDER SUMMARY</p>
+            <p class="summary-title">TÓM TẮT ĐƠN HÀNG</p>
             <div class="summary-divider"></div>
 
             <div class="summary-items">
@@ -219,7 +219,7 @@ import type { PaymentNavigationState } from '../../services/checkout-flow.servic
                 <img [src]="item.imageUrl || 'assets/placeholder.png'" alt="" class="item-thumb" />
                 <div class="item-meta">
                   <p class="item-name">{{ item.title }}</p>
-                  <p class="item-qty">QTY: {{ item.quantity }} &times; {{ formatVND(item.price) }}</p>
+                  <p class="item-qty">SL: {{ item.quantity }} &times; {{ formatVND(item.price) }}</p>
                 </div>
                 <p class="item-price">{{ formatVND(item.price * item.quantity) }}</p>
               </div>
@@ -228,30 +228,30 @@ import type { PaymentNavigationState } from '../../services/checkout-flow.servic
             <div class="summary-divider light"></div>
 
             <div class="summary-row">
-              <span>Total weight</span>
+              <span>Tổng khối lượng</span>
               <span><b>{{ totalWeight }}kg</b></span>
             </div>
             <div class="summary-row">
-              <span>Subtotal (excl VAT)</span>
+              <span>Tạm tính (chưa VAT)</span>
               <span><b>{{ formatVND(subtotal) }}</b></span>
             </div>
             <div class="summary-row">
-              <span>VAT (10%)</span>
+              <span>Thuế VAT (10%)</span>
               <span><b>{{ formatVND(vat) }}</b></span>
             </div>
             <div class="summary-row">
-              <span>Product total (incl VAT)</span>
+              <span>Tổng tiền sản phẩm (gồm VAT)</span>
               <span><b>{{ formatVND(subtotal + vat) }}</b></span>
             </div>
             <div class="summary-row">
-              <span>Shipping fee</span>
+              <span>Phí giao hàng</span>
               <span><b>{{ shippingFee === 0 ? '0đ' : formatVND(shippingFee) }}</b></span>
             </div>
 
             <div class="summary-divider light"></div>
 
             <div class="summary-row total-row">
-              <strong>TOTAL</strong>
+              <strong>TỔNG CỘNG</strong>
               <strong>{{ formatVND(total) }}</strong>
             </div>
           </div>
@@ -686,7 +686,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       this.selectedMethod = 'paypal';
       this.isProcessing = false;
       this.clearPayPalReturnQuery();
-      this.showToast('PayPal payment was cancelled. You can continue with PayPal or choose VietQR.', 'error');
+      this.showToast('Thanh toán PayPal đã bị hủy. Bạn có thể tiếp tục với PayPal hoặc chọn VietQR.', 'error');
       return;
     }
 
@@ -731,7 +731,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error('QR generation failed', err);
-        this.qrError = 'Failed to generate QR code. Please try again.';
+        this.qrError = 'Không thể tạo mã QR. Vui lòng thử lại.';
         this.isLoadingQR = false;
       },
     });
@@ -748,13 +748,13 @@ export class PaymentComponent implements OnInit, OnDestroy {
         } else {
           this.isProcessing = false;
           const detail = verdict ? ` (${verdict})` : '';
-          this.showToast(`Payment was not confirmed by VietQR.${detail}`, 'error');
+          this.showToast(`Thanh toán chưa được xác nhận bởi VietQR.${detail}`, 'error');
         }
       },
       error: (err) => {
         this.isProcessing = false;
         console.error('VietQR simulation failed', err);
-        this.showToast('Payment simulation failed. Please try again.', 'error');
+        this.showToast('Xác nhận thanh toán thử nghiệm thất bại. Vui lòng thử lại.', 'error');
       },
     });
   }
@@ -775,7 +775,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       error: (err) => {
         this.isProcessing = false;
         console.error('Order finalization failed', err);
-        this.showToast('Payment was confirmed but finalize failed. Please retry.', 'error');
+        this.showToast('Thanh toán đã được xác nhận nhưng hoàn tất đơn hàng thất bại. Vui lòng thử lại.', 'error');
       },
     });
   }
@@ -791,7 +791,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       error: (err) => {
         this.isProcessing = false;
         console.error('PayPal init failed', err);
-        this.showToast('Failed to initialize PayPal payment.', 'error');
+        this.showToast('Không thể khởi tạo thanh toán PayPal.', 'error');
       },
     });
   }
@@ -832,7 +832,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
         console.error('PayPal capture failed', err);
         console.error('PayPal capture response body', err?.error);
         this.clearPayPalReturnQuery();
-        const message = err?.error?.message ?? 'Payment cancelled or failed. Invoice stays DRAFT.';
+        const message = err?.error?.message ?? 'Thanh toán đã bị hủy hoặc thất bại.';
         this.showToast(message, 'error');
       },
     });
@@ -877,7 +877,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       } else {
         this.stopTimer();
         this.qrCode = null;
-        this.qrError = 'QR code expired. Please reload to generate a new one.';
+        this.qrError = 'Mã QR đã hết hạn. Vui lòng tải lại trang để tạo mã mới.';
         this.cdr.detectChanges();
       }
     }, 1000);

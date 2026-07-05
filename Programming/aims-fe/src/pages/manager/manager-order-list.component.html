@@ -1,10 +1,10 @@
 <section class="order-list-page">
       <div class="page-header">
-        <h1 class="page-title">Pending orders</h1>
+        <h1 class="page-title">Đơn hàng đang chờ</h1>
         <div class="header-actions">
           <button type="button" class="refresh-btn" (click)="loadOrders()" [disabled]="loading()">
             <span nz-icon nzType="reload" nzTheme="outline"></span>
-            Refresh
+            Làm mới
           </button>
         </div>
       </div>
@@ -19,21 +19,21 @@
 
       <div class="table-card">
         @if (loading()) {
-          <p class="load-hint">Loading orders...</p>
+          <p class="load-hint">Đang tải đơn hàng...</p>
         } @else if (!orders().length && !loadError()) {
-          <p class="load-hint">No pending orders.</p>
+          <p class="load-hint">Không có đơn hàng chờ nào.</p>
         } @else {
           <table class="order-table">
             <thead>
               <tr>
-                <th>ORDER</th>
-                <th>CUSTOMER</th>
-                <th>CITY</th>
-                <th>TOTAL</th>
-                <th>PAYMENT</th>
-                <th>STATUS</th>
-                <th>CREATED</th>
-                <th class="col-action">ACTIONS</th>
+                <th>ĐƠN HÀNG</th>
+                <th>KHÁCH HÀNG</th>
+                <th>TỈNH/THÀNH PHỐ</th>
+                <th>TỔNG TIỀN</th>
+                <th>THANH TOÁN</th>
+                <th>TRẠNG THÁI</th>
+                <th>NGÀY TẠO</th>
+                <th class="col-action">HÀNH ĐỘNG</th>
               </tr>
             </thead>
             <tbody>
@@ -55,8 +55,8 @@
                     <button
                       type="button"
                       class="icon-btn"
-                      title="View order"
-                      aria-label="View order"
+                      title="Xem đơn hàng"
+                      aria-label="Xem đơn hàng"
                       (click)="openDetails(order.orderId)"
                     >
                       <span nz-icon nzType="eye" nzTheme="outline"></span>
@@ -64,8 +64,8 @@
                     <button
                       type="button"
                       class="icon-btn approve"
-                      title="Approve order"
-                      aria-label="Approve order"
+                      title="Duyệt đơn hàng"
+                      aria-label="Duyệt đơn hàng"
                       [disabled]="isActionRunning(order.orderId)"
                       (click)="openApproveConfirm(order)"
                     >
@@ -74,8 +74,8 @@
                     <button
                       type="button"
                       class="icon-btn reject"
-                      title="Reject order"
-                      aria-label="Reject order"
+                      title="Từ chối đơn hàng"
+                      aria-label="Từ chối đơn hàng"
                       [disabled]="isActionRunning(order.orderId)"
                       (click)="openRejectConfirm(order)"
                     >
@@ -92,11 +92,11 @@
       @if (totalPages() > 1) {
         <div class="pager">
           <button type="button" class="pager-btn" [disabled]="!canGoPrevious()" (click)="goPrevious()">
-            Previous
+            Trước
           </button>
-          <span>Page {{ page() + 1 }} of {{ totalPages() }}</span>
+          <span>Trang {{ page() + 1 }} trên {{ totalPages() }}</span>
           <button type="button" class="pager-btn" [disabled]="!canGoNext()" (click)="goNext()">
-            Next
+            Sau
           </button>
         </div>
       }
@@ -107,10 +107,10 @@
         <div class="detail-box" role="dialog" aria-labelledby="order-detail-title" (click)="$event.stopPropagation()">
           <div class="detail-header">
             <div>
-              <p class="detail-eyebrow">Order #{{ order.orderId }}</p>
-              <h2 id="order-detail-title" class="detail-title">{{ order.customerName || 'Customer' }}</h2>
+              <p class="detail-eyebrow">Đơn hàng #{{ order.orderId }}</p>
+              <h2 id="order-detail-title" class="detail-title">{{ order.customerName || 'Khách hàng' }}</h2>
             </div>
-            <button type="button" class="icon-btn" aria-label="Close details" (click)="closeDetails()">
+            <button type="button" class="icon-btn" aria-label="Đóng chi tiết" (click)="closeDetails()">
               <span nz-icon nzType="close" nzTheme="outline"></span>
             </button>
           </div>
@@ -121,19 +121,19 @@
               <strong>{{ order.email || 'N/A' }}</strong>
             </div>
             <div>
-              <span class="detail-label">Phone</span>
+              <span class="detail-label">Số điện thoại</span>
               <strong>{{ order.phoneNumber || 'N/A' }}</strong>
             </div>
             <div>
-              <span class="detail-label">City</span>
+              <span class="detail-label">Tỉnh / Thành phố</span>
               <strong>{{ order.city || 'N/A' }}</strong>
             </div>
             <div>
-              <span class="detail-label">Payment</span>
+              <span class="detail-label">Thanh toán</span>
               <strong>{{ formatPayment(order.paymentMethod) }}</strong>
             </div>
             <div class="detail-wide">
-              <span class="detail-label">Address</span>
+              <span class="detail-label">Địa chỉ</span>
               <strong>{{ order.shippingAddress || 'N/A' }}</strong>
             </div>
           </div>
@@ -143,7 +143,7 @@
               <div class="item-row">
                 <div>
                   <strong>{{ item.productTitle }}</strong>
-                  <span>Qty {{ item.quantity }} / Stock {{ item.availableQuantity }}</span>
+                  <span>Số lượng: {{ item.quantity }} / Tồn kho: {{ item.availableQuantity }}</span>
                 </div>
                 <span>{{ item.itemTotal | currency: 'VND' : 'symbol' : '1.0-0' }}</span>
               </div>
@@ -152,7 +152,7 @@
 
           @if (order.refundStatus || order.refundType || order.refundNote) {
             <div class="refund-info">
-              <strong>{{ order.refundType || 'Refund' }}: {{ order.refundStatus || 'N/A' }}</strong>
+              <strong>{{ order.refundType || 'Hoàn tiền' }}: {{ order.refundStatus || 'N/A' }}</strong>
               <span>{{ order.refundNote || 'N/A' }}</span>
             </div>
           }
@@ -160,9 +160,9 @@
           <div class="detail-footer">
             <strong>{{ order.totalAmount | currency: 'VND' : 'symbol' : '1.0-0' }}</strong>
             <div class="detail-actions">
-              <button type="button" class="confirm-btn no" (click)="closeDetails()">Close</button>
-              <button type="button" class="confirm-btn reject" (click)="openRejectConfirm(order)">Reject</button>
-              <button type="button" class="confirm-btn yes" (click)="openApproveConfirm(order)">Approve</button>
+              <button type="button" class="confirm-btn no" (click)="closeDetails()">Đóng</button>
+              <button type="button" class="confirm-btn reject" (click)="openRejectConfirm(order)">Từ chối</button>
+              <button type="button" class="confirm-btn yes" (click)="openApproveConfirm(order)">Duyệt</button>
             </div>
           </div>
         </div>
@@ -173,17 +173,17 @@
       <div class="confirm-backdrop" (click)="closeApproveConfirm()">
         <div class="confirm-box" role="alertdialog" aria-labelledby="approve-confirm-title" (click)="$event.stopPropagation()">
           <p id="approve-confirm-title" class="confirm-message">
-            Approve order #{{ order.orderId }}?
+            Duyệt đơn hàng #{{ order.orderId }}?
           </p>
           <div class="confirm-actions">
-            <button type="button" class="confirm-btn no" (click)="closeApproveConfirm()">No</button>
+            <button type="button" class="confirm-btn no" (click)="closeApproveConfirm()">Không</button>
             <button
               type="button"
               class="confirm-btn yes"
               [disabled]="isActionRunning(order.orderId)"
               (click)="confirmApprove()"
             >
-              Yes
+              Có
             </button>
           </div>
         </div>
@@ -194,23 +194,23 @@
       <div class="confirm-backdrop" (click)="closeRejectConfirm()">
         <div class="confirm-box reject-box" role="alertdialog" aria-labelledby="reject-confirm-title" (click)="$event.stopPropagation()">
           <p id="reject-confirm-title" class="confirm-message">
-            Reject order #{{ order.orderId }}?
+            Từ chối đơn hàng #{{ order.orderId }}?
           </p>
           <textarea
             class="reason-input"
             rows="4"
-            placeholder="Reason"
+            placeholder="Lý do từ chối..."
             [(ngModel)]="rejectReason"
           ></textarea>
           <div class="confirm-actions">
-            <button type="button" class="confirm-btn no" (click)="closeRejectConfirm()">No</button>
+            <button type="button" class="confirm-btn no" (click)="closeRejectConfirm()">Không</button>
             <button
               type="button"
               class="confirm-btn reject"
               [disabled]="isActionRunning(order.orderId)"
               (click)="confirmReject()"
             >
-              Reject
+              Từ chối
             </button>
           </div>
         </div>

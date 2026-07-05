@@ -125,7 +125,7 @@ export class AddProductModalComponent {
             this.loading.set(false);
           },
           error: () => {
-            this.errorMessage.set('Could not load product details.');
+            this.errorMessage.set('Không thể tải chi tiết sản phẩm.');
             this.loading.set(false);
           },
         });
@@ -170,7 +170,7 @@ export class AddProductModalComponent {
         this.uploadingImage.set(false);
         input.value = '';
         this.errorMessage.set(
-          err?.error?.message ?? err?.message ?? 'Image upload failed. Is the backend running?',
+          err?.error?.message ?? err?.message ?? 'Tải ảnh lên thất bại. Backend đang chạy ở cổng 8080 chứ?',
         );
       },
     });
@@ -196,7 +196,7 @@ export class AddProductModalComponent {
       const userId = this.authService.getUserId();
       if (!userId) {
         this.submitting.set(false);
-        this.errorMessage.set('You must be logged in to update products.');
+        this.errorMessage.set('Bạn phải đăng nhập để cập nhật sản phẩm.');
         return;
       }
 
@@ -215,7 +215,7 @@ export class AddProductModalComponent {
     const userId = this.authService.getUserId();
     if (!userId) {
       this.submitting.set(false);
-      this.errorMessage.set('You must be logged in to create products.');
+      this.errorMessage.set('Bạn phải đăng nhập để tạo sản phẩm.');
       return;
     }
 
@@ -319,7 +319,7 @@ export class AddProductModalComponent {
     this.submitting.set(false);
     this.errorMessage.set(
       err?.error?.message ??
-        `Failed to ${action} product. Please check your input.`,
+        'Lưu sản phẩm thất bại. Vui lòng kiểm tra lại thông tin.',
     );
   }
 }

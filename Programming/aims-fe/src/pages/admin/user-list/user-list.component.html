@@ -1,18 +1,18 @@
 <div class="user-list-container">
       <div class="header">
-        <h2>User Management</h2>
-        <button class="btn btn-primary" routerLink="/admin/users/new">Create New User</button>
+        <h2>Quản lý người dùng</h2>
+        <button class="btn btn-primary" routerLink="/admin/users/new">Tạo người dùng mới</button>
       </div>
 
       <table class="user-table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Avatar</th>
-            <th>Name</th>
+            <th>Ảnh đại diện</th>
+            <th>Tên</th>
             <th>Email</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
           </tr>
         </thead>
         <tbody>
@@ -27,13 +27,13 @@
               <span class="status-badge" [ngClass]="user.status ? user.status.toLowerCase() : ''">{{ user.status || 'UNKNOWN' }}</span>
             </td>
             <td class="actions">
-              <button class="btn btn-sm btn-outline" [routerLink]="['/admin/users/view', user.userId]" style="margin-right: 5px;">View</button>
-              <button class="btn btn-sm btn-outline" [routerLink]="['/admin/users/edit', user.userId]">Edit</button>
+              <button class="btn btn-sm btn-outline" [routerLink]="['/admin/users/view', user.userId]" style="margin-right: 5px;">Xem</button>
+              <button class="btn btn-sm btn-outline" [routerLink]="['/admin/users/edit', user.userId]">Sửa</button>
               <button 
                 *ngIf="user.status !== 'DEACTIVATED'" 
                 class="btn btn-sm btn-danger" 
                 (click)="deactivateUser(user.userId)">
-                Deactivate
+                Vô hiệu hóa
               </button>
             </td>
           </tr>

@@ -76,12 +76,12 @@ export class DeliveryComponent implements OnInit {
         const oldFee = this.shippingFee;
         this.shippingFee = res.result.shippingFee;
         if (oldFee !== this.shippingFee && this.deliveryForm.valid) {
-          this.showToast('Shipping fee and total amount were recalculated.', 'success');
+          this.showToast('Phí giao hàng và tổng số tiền đã được tính lại thành công.', 'success');
         }
       },
       error: (err) => {
         console.error('Lỗi tính phí ship', err);
-        this.showToast('Failed to recalculate shipping fee.', 'error');
+        this.showToast('Không thể tính toán lại phí giao hàng.', 'error');
       }
     });
   }
@@ -90,7 +90,7 @@ export class DeliveryComponent implements OnInit {
     this.hasAttemptedSubmit = true;
 
     if (this.deliveryForm.invalid) {
-      this.errorMessage = 'Delivery information is invalid. Please update required fields and try again.';
+      this.errorMessage = 'Thông tin giao hàng không hợp lệ. Vui lòng cập nhật các trường bắt buộc và thử lại.';
       this.showToast(this.errorMessage, 'error');
       return;
     }

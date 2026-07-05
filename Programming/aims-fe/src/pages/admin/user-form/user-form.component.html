@@ -1,12 +1,12 @@
 <div class="user-form-container">
       <div class="header">
-        <h2>{{ isEditMode ? 'Edit User' : 'Create New User' }}</h2>
-        <button class="btn btn-outline" routerLink="/admin/users">Back to List</button>
+        <h2>{{ isEditMode ? 'Chỉnh sửa người dùng' : 'Tạo người dùng mới' }}</h2>
+        <button class="btn btn-outline" routerLink="/admin/users">Quay lại danh sách</button>
       </div>
 
       <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="form-card">
         <div class="form-group">
-          <label for="userName">Name</label>
+          <label for="userName">Tên người dùng</label>
           <input type="text" id="userName" name="userName" [(ngModel)]="formData.userName" required class="form-control">
         </div>
 
@@ -16,7 +16,7 @@
         </div>
         
         <div class="form-group">
-          <label for="avatarUrl">Avatar URL</label>
+          <label for="avatarUrl">Đường dẫn ảnh đại diện</label>
           <input type="text" id="avatarUrl" name="avatarUrl" [(ngModel)]="formData.avatarUrl" class="form-control">
         </div>
 
@@ -25,7 +25,7 @@
         </div>
 
         <button type="submit" [disabled]="!userForm.form.valid" class="btn btn-primary submit-btn">
-          {{ isEditMode ? 'Update' : 'Create' }}
+          {{ isEditMode ? 'Cập nhật' : 'Tạo mới' }}
         </button>
       </form>
     </div>

@@ -1,13 +1,13 @@
 <section class="product-list-page">
       <div class="page-header">
-        <h1 class="page-title">List of product</h1>
+        <h1 class="page-title">Danh sách sản phẩm</h1>
         <div class="header-actions">
           @if (hasSelection()) {
             <button type="button" class="delete-btn" (click)="openDeleteConfirm()">
-              Delete product
+              Xóa sản phẩm
             </button>
           }
-          <button type="button" class="add-btn" (click)="openAddModal()">Add product</button>
+          <button type="button" class="add-btn" (click)="openAddModal()">Thêm sản phẩm</button>
         </div>
       </div>
 
@@ -17,9 +17,9 @@
 
       <div class="table-card">
         @if (loading()) {
-          <p class="load-hint">Loading products…</p>
+          <p class="load-hint">Đang tải sản phẩm...</p>
         } @else if (!products().length && !loadError()) {
-          <p class="load-hint">No products in catalog.</p>
+          <p class="load-hint">Không có sản phẩm nào trong kho.</p>
         } @else {
         <table class="product-table">
           <thead>
@@ -33,11 +33,11 @@
                   (change)="onSelectAllChange($event)"
                 />
               </th>
-              <th>PRODUCT</th>
-              <th>CATEGORY</th>
-              <th>PRICE</th>
-              <th>STOCK</th>
-              <th>STATUS</th>
+              <th>SẢN PHẨM</th>
+              <th>DANH MỤC</th>
+              <th>GIÁ</th>
+              <th>TỒN KHO</th>
+              <th>TRẠNG THÁI</th>
               <th class="col-action"></th>
             </tr>
           </thead>
@@ -94,13 +94,13 @@
     @if (showDeleteConfirm()) {
       <div class="confirm-backdrop" (click)="closeDeleteConfirm()">
         <div class="confirm-box" role="alertdialog" aria-labelledby="delete-confirm-title" (click)="$event.stopPropagation()">
-          <p id="delete-confirm-title" class="confirm-message">Are you sure you want to delete it?</p>
+          <p id="delete-confirm-title" class="confirm-message">Bạn có chắc chắn muốn xóa sản phẩm đã chọn?</p>
           @if (deleteError()) {
             <p class="confirm-error">{{ deleteError() }}</p>
           }
           <div class="confirm-actions">
-            <button type="button" class="confirm-btn no" (click)="closeDeleteConfirm()">No</button>
-            <button type="button" class="confirm-btn yes" (click)="confirmDelete()">Yes</button>
+            <button type="button" class="confirm-btn no" (click)="closeDeleteConfirm()">Không</button>
+            <button type="button" class="confirm-btn yes" (click)="confirmDelete()">Có</button>
           </div>
         </div>
       </div>

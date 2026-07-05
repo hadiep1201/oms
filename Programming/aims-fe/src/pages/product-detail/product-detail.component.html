@@ -2,19 +2,19 @@
       <!-- Breadcrumb / Back Bar -->
       <div class="breadcrumb-bar">
         <button class="back-btn" (click)="goBack()">
-          <span>&larr;</span> Back
+          <span>&larr;</span> Quay lại
         </button>
       </div>
 
       <!-- Loading / Error states -->
       <div *ngIf="loading()" class="state-message">
         <div class="spinner"></div>
-        <p>Loading product details...</p>
+        <p>Đang tải chi tiết sản phẩm...</p>
       </div>
 
       <div *ngIf="!loading() && errorMessage()" class="state-message error">
         <p>⚠️ {{ errorMessage() }}</p>
-        <button class="back-btn" (click)="goBack()">Go Back</button>
+        <button class="back-btn" (click)="goBack()">Quay lại</button>
       </div>
 
       <!-- Main Detail Content -->
@@ -49,7 +49,7 @@
               <span class="current-price">{{ product().currentPrice | currency:'VND':'symbol':'1.0-0' }}</span>
             </div>
 
-            <p class="description">{{ product().generalDescription || 'No description available for this product.' }}</p>
+            <p class="description">{{ product().generalDescription || 'Không có mô tả cho sản phẩm này.' }}</p>
 
             <!-- Quantity & Add to Cart -->
             <div class="purchase-controls" *ngIf="!isOutOfStock() && canUseStorefrontCart()">
@@ -60,12 +60,12 @@
               </div>
 
               <button class="add-cart-btn" (click)="addToCart()">
-                <span class="cart-icon">🛒</span> ADD TO CART
+                <span class="cart-icon">🛒</span> THÊM VÀO GIỎ
               </button>
             </div>
 
             <div class="out-of-stock-msg" *ngIf="isOutOfStock()">
-              <p>❌ Out of Stock / Unavailable</p>
+              <p>❌ Hết hàng / Không sẵn sàng</p>
             </div>
           </div>
         </div>
@@ -75,32 +75,32 @@
 
         <!-- Bottom Half: Technical & Category Specific Info -->
         <div class="technical-info">
-          <h2 class="section-title">Information detail</h2>
+          <h2 class="section-title">Thông tin chi tiết</h2>
           
           <div class="info-grid">
             <!-- Common Physical Attributes -->
             <div class="grid-item" *ngIf="product().weight">
-              <span class="label">WEIGHT</span>
+              <span class="label">TRỌNG LƯỢNG</span>
               <span class="value">{{ product().weight | number:'1.0-2' }} KG</span>
             </div>
             <div class="grid-item" *ngIf="product().length">
-              <span class="label">LENGTH</span>
+              <span class="label">CHIỀU DÀI</span>
               <span class="value">{{ product().length | number:'1.0-2' }} CM</span>
             </div>
             <div class="grid-item" *ngIf="product().width">
-              <span class="label">WIDTH</span>
+              <span class="label">CHIỀU RỘNG</span>
               <span class="value">{{ product().width | number:'1.0-2' }} CM</span>
             </div>
             <div class="grid-item" *ngIf="product().height">
-              <span class="label">HEIGHT</span>
+              <span class="label">CHIỀU CAO</span>
               <span class="value">{{ product().height | number:'1.0-2' }} CM</span>
             </div>
             <div class="grid-item">
-              <span class="label">QUANTITY</span>
+              <span class="label">SỐ LƯỢNG TRONG KHO</span>
               <span class="value">{{ product().stockQuantity }}</span>
             </div>
             <div class="grid-item" *ngIf="product().barcode">
-              <span class="label">BARCODE</span>
+              <span class="label">MÃ VẠCH</span>
               <div class="barcode-container">
                 <svg #barcodeSvg class="barcode-img"></svg>
               </div>

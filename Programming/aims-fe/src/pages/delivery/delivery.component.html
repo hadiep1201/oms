@@ -3,30 +3,30 @@
         {{ toastMessage }}
       </div>
       <div class="stepper">
-        <span class="step active"><span class="circle">1</span> DELIVERY</span>
+        <span class="step active"><span class="circle">1</span> GIAO HÀNG</span>
         <span class="line"></span>
-        <span class="step"><span class="circle">2</span> PAYMENT</span>
+        <span class="step"><span class="circle">2</span> THANH TOÁN</span>
       </div>
 
-      <h1>DELIVERY INFO</h1>
+      <h1>THÔNG TIN GIAO HÀNG</h1>
       
       <div class="content-wrapper">
         <div class="form-section">
           <form [formGroup]="deliveryForm">
             <div class="form-row">
               <div class="form-group">
-                <label>FULL NAME <span class="required">*</span></label>
+                <label>HỌ VÀ TÊN <span class="required">*</span></label>
                 <input type="text" formControlName="receiverName" placeholder="Tuanne" />
-                <div class="field-error" *ngIf="shouldShowFieldError('receiverName')">Full name is required.</div>
+                <div class="field-error" *ngIf="shouldShowFieldError('receiverName')">Họ và tên là bắt buộc.</div>
               </div>
               <div class="form-group">
-                <label>PHONE NUMBER <span class="required">*</span></label>
+                <label>SỐ ĐIỆN THOẠI <span class="required">*</span></label>
                 <input type="text" formControlName="phoneNumber" placeholder="0123456789" />
                 <div class="field-error" *ngIf="shouldShowFieldError('phoneNumber')">
                   <ng-container *ngIf="deliveryForm.get('phoneNumber')?.hasError('required'); else invalidPhone">
-                    Phone number is required.
+                    Số điện thoại là bắt buộc.
                   </ng-container>
-                  <ng-template #invalidPhone>Phone number must be 10-11 digits.</ng-template>
+                  <ng-template #invalidPhone>Số điện thoại phải gồm 10-11 chữ số.</ng-template>
                 </div>
               </div>
             </div>
@@ -36,33 +36,33 @@
               <input type="email" formControlName="email" placeholder="example@gmail.com" />
               <div class="field-error" *ngIf="shouldShowFieldError('email')">
                 <ng-container *ngIf="deliveryForm.get('email')?.hasError('required'); else invalidEmail">
-                  Email is required.
+                  Email là bắt buộc.
                 </ng-container>
-                <ng-template #invalidEmail>Email is not in a valid format.</ng-template>
+                <ng-template #invalidEmail>Định dạng Email không hợp lệ.</ng-template>
               </div>
             </div>
 
             <div class="form-group">
-              <label>SHIPPING ADDRESS <span class="required">*</span></label>
-              <input type="text" formControlName="address" placeholder="123 Street Name" />
-              <div class="field-error" *ngIf="shouldShowFieldError('address')">Shipping address is required.</div>
+              <label>ĐỊA CHỈ GIAO HÀNG <span class="required">*</span></label>
+              <input type="text" formControlName="address" placeholder="123 Tên đường, Quận/Huyện..." />
+              <div class="field-error" *ngIf="shouldShowFieldError('address')">Địa chỉ giao hàng là bắt buộc.</div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label>CITY <span class="required">*</span></label>
-                <input type="text" formControlName="city" placeholder="Select/Enter City" />
-                <div class="field-error" *ngIf="shouldShowFieldError('city')">City is required.</div>
+                <label>TỈNH / THÀNH PHỐ <span class="required">*</span></label>
+                <input type="text" formControlName="city" placeholder="Chọn hoặc nhập Tỉnh/Thành phố" />
+                <div class="field-error" *ngIf="shouldShowFieldError('city')">Tỉnh / Thành phố là bắt buộc.</div>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label>INSTRUCTION</label>
-                <input type="text" formControlName="instruction" placeholder="LOREM..." />
+                <label>HƯỚNG DẪN GIAO HÀNG</label>
+                <input type="text" formControlName="instruction" placeholder="Ví dụ: Giao giờ hành chính..." />
               </div>
               <div class="form-group">
-                <label>EXPECTED DATE</label>
+                <label>NGÀY NHẬN MONG MUỐN</label>
                 <input type="date" formControlName="expectedDate" />
               </div>
             </div>
@@ -70,14 +70,14 @@
         </div>
 
         <div class="order-summary-card">
-          <p class="summary-title">ORDER SUMMARY</p>
+          <p class="summary-title">TÓM TẮT ĐƠN HÀNG</p>
           
           <div class="cart-items-small">
             <div class="item-small" *ngFor="let item of cartService.items()">
               <img [src]="item.product.imageUrl || 'https://via.placeholder.com/30x40'" alt="img" />
               <div class="item-info">
                 <h5>{{ item.product.title }}</h5>
-                <p>QTY: {{ item.quantity }}</p>
+                <p>SL: {{ item.quantity }}</p>
               </div>
               <div class="item-price">{{ item.product.currentPrice | currency:'VND':'symbol':'1.0-0' }}</div>
             </div>
@@ -86,29 +86,29 @@
           <hr />
 
           <div class="summary-row">
-            <span>Total weight</span>
+            <span>Tổng khối lượng</span>
             <span>{{ cartService.totalWeight() }}kg</span>
           </div>
           <div class="summary-row">
-            <span>Subtotal (excl VAT)</span>
+            <span>Tạm tính (chưa VAT)</span>
             <span>{{ cartService.subTotal() | currency:'VND':'symbol':'1.0-0' }}</span>
           </div>
           <div class="summary-row">
-            <span>VAT (10%)</span>
+            <span>Thuế VAT (10%)</span>
             <span>{{ cartService.vatAmount() | currency:'VND':'symbol':'1.0-0' }}</span>
           </div>
           <div class="summary-row">
-            <span>Shipping fee</span>
+            <span>Phí giao hàng</span>
             <span>{{ shippingFee | currency:'VND':'symbol':'1.0-0' }}</span>
           </div>
           <hr />
           <div class="summary-row total">
-            <span>TOTAL</span>
+            <span>TỔNG CỘNG</span>
             <span>{{ (cartService.subTotal() + cartService.vatAmount() + shippingFee) | currency:'VND':'symbol':'1.0-0' }}</span>
           </div>
           
           <button class="checkout-btn" [disabled]="isSubmitting" (click)="continueToPayment()">
-            {{ isSubmitting ? 'PROCESSING...' : 'CONTINUE TO PAYMENT' }}
+            {{ isSubmitting ? 'ĐANG XỬ LÝ...' : 'TIẾP TỤC THANH TOÁN' }}
           </button>
           <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
         </div>

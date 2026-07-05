@@ -105,7 +105,7 @@ export class ManagerProductListComponent implements OnInit {
       return;
     }
     if (this.selectedIds().length > 10) {
-      this.deleteError.set('Cannot select more than 10 products. Please reduce your selection.');
+      this.deleteError.set('Không thể chọn nhiều hơn 10 sản phẩm. Vui lòng bỏ chọn bớt.');
     }
     this.showDeleteConfirm.set(true);
   }
@@ -133,7 +133,7 @@ export class ManagerProductListComponent implements OnInit {
         this.loadProducts();
       },
       error: (err: Error) => {
-        this.deleteError.set(err.message ?? 'Failed to delete product(s). Please try again.');
+        this.deleteError.set(err.message ?? 'Xóa sản phẩm thất bại. Vui lòng thử lại.');
       },
     });
   }
@@ -144,14 +144,14 @@ export class ManagerProductListComponent implements OnInit {
       return '';
     }
 
-    let message = `${summary.deletedCount} deleted, ${summary.deactivatedCount} deactivated`;
+    let message = `Đã xóa ${summary.deletedCount} sản phẩm, đã vô hiệu hóa ${summary.deactivatedCount} sản phẩm.`;
     if (summary.failed.length) {
       const errors = summary.failed
         .map((f) => f.errorMessage)
         .filter(Boolean)
         .join('; ');
       if (errors) {
-        message += `. ${errors}`;
+        message += ` Lỗi: ${errors}`;
       }
     }
     return message;
@@ -186,12 +186,12 @@ export class ManagerProductListComponent implements OnInit {
     if (!status) return '';
     const upper = status.toUpperCase();
     if (upper === 'DEACTIVATED' || upper === 'DELETED') {
-      return 'Deactivated';
+      return 'Đã vô hiệu hóa';
     }
     if (upper === 'ACTIVE') {
-      return 'Active';
+      return 'Đang hoạt động';
     }
-    return status.charAt(0) + status.slice(1).toLowerCase();
+    return status;
   }
 
   private loadProducts(): void {
@@ -210,7 +210,7 @@ export class ManagerProductListComponent implements OnInit {
         this.loadError.set(
           err?.error?.message ??
             err?.message ??
-            'Could not load products. Is the backend running on port 8080?',
+            'Không thể tải danh sách sản phẩm. Backend đã khởi chạy ở cổng 8080 chưa?',
         );
       },
     });

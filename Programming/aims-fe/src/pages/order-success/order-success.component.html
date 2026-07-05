@@ -1,18 +1,18 @@
 <section class="success-shell" *ngIf="order; else noOrder">
       <div class="hero-card">
         <div class="hero-icon">✓</div>
-        <h1>ORDER SUCCESS!</h1>
+        <h1>ĐẶT HÀNG THÀNH CÔNG!</h1>
         <p class="hero-copy">
-          Thank you for your purchase. Your order #{{ order.orderId }} has been placed successfully.
+          Cảm ơn bạn đã mua hàng. Đơn hàng #{{ order.orderId }} của bạn đã được đặt thành công.
         </p>
 
         <div class="hero-grid">
           <div class="hero-metric">
-            <span>Confirmation sent</span>
+            <span>Xác nhận gửi đến</span>
             <strong>{{ order.email }}</strong>
           </div>
           <div class="hero-metric">
-            <span>Total amount</span>
+            <span>Tổng tiền thanh toán</span>
             <strong>{{ formatVND(order.totalAmount) }}</strong>
           </div>
         </div>
@@ -20,32 +20,32 @@
 
       <div class="info-grid">
         <article class="info-card">
-          <h2>Shipping Information</h2>
-          <div class="info-row"><span>Customer Name</span><strong>{{ order.customerName }}</strong></div>
-          <div class="info-row"><span>Phone Number</span><strong>{{ order.phoneNumber }}</strong></div>
-          <div class="info-row"><span>Shipping Address</span><strong>{{ order.shippingAddress }}</strong></div>
-          <div class="info-row"><span>City</span><strong>{{ order.city }}</strong></div>
-          <div class="info-row"><span>Delivery Status</span><strong>{{ order.orderStatus }}</strong></div>
+          <h2>Thông Tin Giao Hàng</h2>
+          <div class="info-row"><span>Tên Khách Hàng</span><strong>{{ order.customerName }}</strong></div>
+          <div class="info-row"><span>Số Điện Thoại</span><strong>{{ order.phoneNumber }}</strong></div>
+          <div class="info-row"><span>Địa Chỉ Giao Hàng</span><strong>{{ order.shippingAddress }}</strong></div>
+          <div class="info-row"><span>Tỉnh / Thành phố</span><strong>{{ order.city }}</strong></div>
+          <div class="info-row"><span>Trạng Thái Giao Hàng</span><strong>{{ order.orderStatus }}</strong></div>
         </article>
 
         <article class="info-card">
-          <h2>Transaction Information</h2>
-          <div class="info-row"><span>Transaction ID</span><strong>{{ order.transactionId }}</strong></div>
-          <div class="info-row"><span>Transaction Content</span><strong>{{ order.transactionContent }}</strong></div>
+          <h2>Thông Tin Giao Dịch</h2>
+          <div class="info-row"><span>Mã Giao Dịch</span><strong>{{ order.transactionId }}</strong></div>
+          <div class="info-row"><span>Nội Dung Giao Dịch</span><strong>{{ order.transactionContent }}</strong></div>
           <div class="info-row">
-            <span>Transaction Datetime</span>
+            <span>Thời Gian Giao Dịch</span>
             <strong>{{ order.transactionDatetime | date:'HH:mm:ss dd/MM/yyyy' }}</strong>
           </div>
-          <div class="info-row"><span>Payment Method</span><strong>{{ order.paymentMethod }}</strong></div>
+          <div class="info-row"><span>Phương Thức Thanh Toán</span><strong>{{ order.paymentMethod }}</strong></div>
         </article>
       </div>
 
-      <button class="continue-btn" (click)="continueShopping()">CONTINUE SHOPPING</button>
+      <button class="continue-btn" (click)="continueShopping()">TIẾP TỤC MUA SẮM</button>
     </section>
 
     <ng-template #noOrder>
       <section class="empty-shell">
-        <h1>Order result is unavailable</h1>
-        <button class="continue-btn" (click)="continueShopping()">BACK TO CART</button>
+        <h1>Không tìm thấy thông tin đơn hàng</h1>
+        <button class="continue-btn" (click)="continueShopping()">QUAY LẠI GIỎ HÀNG</button>
       </section>
     </ng-template>

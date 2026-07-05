@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => {
         console.error('Failed to load featured products', err);
-        this.errorMessage.set('Unable to load featured products.');
+        this.errorMessage.set('Không thể tải danh sách sản phẩm nổi bật.');
         this.isLoading.set(false);
       },
     });
@@ -63,12 +63,12 @@ export class HomeComponent implements OnInit {
     this.productService.getProductDetail(product.id).subscribe({
       next: (res) => {
         this.cartService.addDetailToCart(res.result).then((result) => {
-          this.showToast(result.ok ? `Added "${product.title}" to cart!` : (result.message ?? 'Cannot add this item to cart.'));
+          this.showToast(result.ok ? `Đã thêm "${product.title}" vào giỏ hàng!` : (result.message ?? 'Không thể thêm sản phẩm này vào giỏ hàng.'));
         });
       },
       error: (err) => {
         console.error('Failed to fetch product detail for cart', err);
-        this.showToast('Cannot add this item to cart.');
+        this.showToast('Không thể thêm sản phẩm này vào giỏ hàng.');
       }
     });
   }

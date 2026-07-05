@@ -149,11 +149,23 @@ export class ManagerOrderListComponent implements OnInit {
   }
 
   formatPayment(paymentMethod?: string): string {
-    return paymentMethod ? paymentMethod.toUpperCase() : 'N/A';
+    if (!paymentMethod) return 'Chưa xác định';
+    const method = paymentMethod.toUpperCase();
+    if (method === 'PAYPAL') return 'Paypal';
+    if (method === 'VIETQR') return 'VietQR';
+    return method;
   }
 
   formatStatus(status?: string): string {
-    return status ? status.replaceAll('_', ' ') : 'N/A';
+    if (!status) return 'Chưa xác định';
+    const upper = status.toUpperCase();
+    if (upper === 'PENDING_PAYMENT') return 'Chờ thanh toán';
+    if (upper === 'PAYMENT_SUCCESS') return 'Thanh toán thành công';
+    if (upper === 'PENDING_PROCESSING') return 'Chờ xử lý';
+    if (upper === 'APPROVED') return 'Đã duyệt';
+    if (upper === 'REJECTED') return 'Đã từ chối';
+    if (upper === 'EXPIRED') return 'Đã hết hạn';
+    return upper.replaceAll('_', ' ');
   }
 
   private extractError(error: unknown): string {

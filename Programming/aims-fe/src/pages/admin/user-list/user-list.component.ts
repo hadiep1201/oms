@@ -34,12 +34,12 @@ export class UserListComponent implements OnInit {
   }
 
   deactivateUser(id: number): void {
-    if (confirm('Are you sure you want to deactivate this user?')) {
+    if (confirm('Bạn có chắc chắn muốn vô hiệu hóa người dùng này không?')) {
       this.userService.deactivateUser(id).subscribe({
         next: () => {
           this.loadUsers();
         },
-        error: (err) => alert('Failed to deactivate user')
+        error: (err) => alert('Vô hiệu hóa người dùng thất bại')
       });
     }
   }

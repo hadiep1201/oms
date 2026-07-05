@@ -66,7 +66,7 @@ export class ProductDetailComponent implements OnInit {
         const id = Number(idStr);
         this.fetchProductDetail(id);
       } else {
-        this.errorMessage.set('Invalid Product ID');
+        this.errorMessage.set('Mã sản phẩm không hợp lệ');
         this.loading.set(false);
       }
     });
@@ -80,13 +80,13 @@ export class ProductDetailComponent implements OnInit {
         if (res && res.result) {
           this.product.set(res.result);
         } else {
-          this.errorMessage.set('Product not found');
+          this.errorMessage.set('Không tìm thấy sản phẩm');
         }
         this.loading.set(false);
       },
       error: (err) => {
         console.error('Error loading product details:', err);
-        this.errorMessage.set('Could not load product details.');
+        this.errorMessage.set('Không thể tải chi tiết sản phẩm.');
         this.loading.set(false);
       }
     });
@@ -115,10 +115,10 @@ export class ProductDetailComponent implements OnInit {
 
     this.cartService.addDetailToCart(p, this.quantity()).then((result) => {
       if (result.ok) {
-        this.showToast(`Added ${this.quantity()} x "${p.title}" to cart!`);
+        this.showToast(`Đã thêm ${this.quantity()} x "${p.title}" vào giỏ hàng!`);
         return;
       }
-      this.showToast(result.message ?? 'Cannot add this item to cart.');
+      this.showToast(result.message ?? 'Không thể thêm sản phẩm này vào giỏ hàng.');
     });
   }
 

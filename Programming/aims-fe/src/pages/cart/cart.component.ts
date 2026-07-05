@@ -42,7 +42,7 @@ export class CartComponent {
       },
       error: () => {
         this.isCheckingOut = false;
-        this.showToast('Error validating stock. Please try again.', 'error');
+        this.showToast('Lỗi khi kiểm tra kho hàng. Vui lòng thử lại.', 'error');
       }
     });
   }
@@ -51,7 +51,7 @@ export class CartComponent {
     this.quantityDrafts.delete(productId);
     const result = this.cartService.setQuantity(productId, quantity);
     if (!result.ok) {
-      this.showToast(result.message ?? 'Cannot update quantity right now.', 'error');
+      this.showToast(result.message ?? 'Không thể cập nhật số lượng lúc này.', 'error');
     }
   }
 

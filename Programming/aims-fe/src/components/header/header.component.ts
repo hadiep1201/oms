@@ -29,7 +29,7 @@ export class HeaderComponent {
     return this.authService.isAuthenticated() && this.authService.isAdminOnly();
   });
 
-  managerLabel = computed(() => this.authService.session()?.userName ?? 'User');
+  managerLabel = computed(() => this.authService.session()?.userName ?? 'Người dùng');
 
   constructor() {
     this.router.events

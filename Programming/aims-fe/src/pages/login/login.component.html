@@ -1,6 +1,6 @@
 <section class="login-page">
       <div class="login-card">
-        <h1 class="login-title">Log in</h1>
+        <h1 class="login-title">Đăng nhập</h1>
 
         <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
           <label class="field">
@@ -14,7 +14,7 @@
             <input
               type="text"
               formControlName="username"
-              placeholder="username"
+              placeholder="Tên đăng nhập (Email)"
               autocomplete="username"
             />
           </label>
@@ -30,15 +30,15 @@
             <input
               type="password"
               formControlName="password"
-              placeholder="password"
+              placeholder="Mật khẩu"
               autocomplete="current-password"
             />
           </label>
 
-          <a class="forgot-link" href="javascript:void(0)">forgot password</a>
+          <a class="forgot-link" href="javascript:void(0)">Quên mật khẩu</a>
 
           <button type="submit" class="sign-in-btn" [disabled]="form.invalid || loading()">
-            {{ loading() ? 'Signing in…' : 'Sign in' }}
+            {{ loading() ? 'Đang đăng nhập…' : 'Đăng nhập' }}
           </button>
           @if (errorMessage()) {
             <p class="login-error">{{ errorMessage() }}</p>

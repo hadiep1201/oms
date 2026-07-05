@@ -1,21 +1,21 @@
 <section class="hero">
       <div class="hero-copy">
-        <h1>AIMS<br />COLLECTIONS</h1>
+        <h1>BỘ SƯU TẬP<br />AIMS</h1>
         <p>
-          AIMS is the leading platform for purchasing multimedia, books, CDs, DVDs, and newspapers securely and effortlessly.
+          AIMS là nền tảng hàng đầu giúp bạn mua sắm sách, báo chí, đĩa CD và đĩa DVD trực tuyến một cách an toàn, nhanh chóng và dễ dàng.
         </p>
       </div>
     </section>
 
     <section class="featured">
       <div class="section-title">
-        <h2>Featured products</h2>
+        <h2>Sản phẩm nổi bật</h2>
       </div>
 
-      <p *ngIf="isLoading()" class="state-message">Loading products...</p>
+      <p *ngIf="isLoading()" class="state-message">Đang tải sản phẩm...</p>
       <p *ngIf="!isLoading() && errorMessage()" class="state-message">{{ errorMessage() }}</p>
       <p *ngIf="!isLoading() && !errorMessage() && products().length === 0" class="state-message">
-        No featured products available.
+        Không có sản phẩm nổi bật nào.
       </p>
 
       <div *ngIf="toastMessage()" class="toast-message">
@@ -44,8 +44,9 @@
             class="add-to-cart-btn"
             (click)="addToCart(product)"
           >
-            Add to Cart
+            Thêm vào Giỏ
           </button>
         </article>
       </div>
     </section>
+

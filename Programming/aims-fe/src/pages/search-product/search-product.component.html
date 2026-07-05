@@ -1,21 +1,21 @@
 <div class="search-page-container">
       <!-- Search Summary & Filters Header -->
       <div class="search-header">
-        <h2 class="search-title">Search for "{{ keyword() }}"</h2>
+        <h2 class="search-title">Kết quả tìm kiếm cho "{{ keyword() }}"</h2>
         
         <div class="filter-section">
-          <span class="filter-label">Filter</span>
+          <span class="filter-label">Bộ lọc</span>
           <div class="price-inputs">
             <div class="input-wrapper">
               <input type="number" [(ngModel)]="priceFrom" placeholder=" " class="price-input" />
-              <label class="input-label">đ from</label>
+              <label class="input-label">đ từ</label>
             </div>
             <div class="input-wrapper">
               <input type="number" [(ngModel)]="priceTo" placeholder=" " class="price-input" />
-              <label class="input-label">đ to</label>
+              <label class="input-label">đ đến</label>
             </div>
-            <button class="filter-btn" (click)="applyFilter()">Apply</button>
-            <button class="clear-btn" (click)="clearFilter()">Clear</button>
+            <button class="filter-btn" (click)="applyFilter()">Áp dụng</button>
+            <button class="clear-btn" (click)="clearFilter()">Xóa lọc</button>
           </div>
         </div>
       </div>
@@ -26,11 +26,11 @@
       <!-- Loading / Empty states -->
       <div *ngIf="loading()" class="state-message">
         <div class="spinner"></div>
-        <p>Searching products...</p>
+        <p>Đang tìm kiếm sản phẩm...</p>
       </div>
 
       <div *ngIf="!loading() && products().length === 0" class="state-message error">
-        <p>⚠️ No products found matching your search criteria.</p>
+        <p>⚠️ Không tìm thấy sản phẩm nào phù hợp với bộ lọc.</p>
       </div>
 
       <!-- Product Grid -->
@@ -38,7 +38,7 @@
         <div class="product-card" *ngFor="let item of products()">
           <!-- Out of stock badge/overlay -->
           <div *ngIf="isOutOfStock(item)" class="out-of-stock-overlay">
-            <span>OUT OF STOCK</span>
+            <span>HẾT HÀNG</span>
           </div>
 
           <!-- Product Image & Info Link -->
@@ -61,10 +61,10 @@
           <!-- Actions (Hover/Overlay Add to Cart) -->
           <div class="card-actions" *ngIf="canUseStorefrontCart()">
             <button *ngIf="!isOutOfStock(item)" class="add-to-cart-btn" (click)="addToCart(item)">
-              Add to Cart
+              Thêm vào Giỏ
             </button>
             <button *ngIf="isOutOfStock(item)" class="add-to-cart-btn disabled" disabled>
-              Unavailable
+              Không sẵn sàng
             </button>
           </div>
         </div>
@@ -80,7 +80,7 @@
         <div class="footer-col brand-col">
           <h3 class="footer-logo">AIMS</h3>
           <p class="brand-text">
-            AIMS is the leading platform for purchasing multimedia, books, CDs, DVDs, and newspapers securely and effortlessly.
+            AIMS là nền tảng hàng đầu giúp bạn mua sắm sách, báo chí, đĩa CD và đĩa DVD trực tuyến một cách an toàn, nhanh chóng và dễ dàng.
           </p>
           <div class="social-icons">
             <span class="social-icon">facebook</span>
@@ -90,20 +90,20 @@
         </div>
 
         <div class="footer-col links-col">
-          <h4 class="col-title">Product</h4>
+          <h4 class="col-title">Sản phẩm</h4>
           <ul class="footer-links">
-            <li><a routerLink="/search" [queryParams]="{keyword: 'Book'}">Books</a></li>
-            <li><a routerLink="/search" [queryParams]="{keyword: 'Newspaper'}">Newspapers</a></li>
-            <li><a routerLink="/search" [queryParams]="{keyword: 'CD'}">CDs</a></li>
-            <li><a routerLink="/search" [queryParams]="{keyword: 'DVD'}">DVDs</a></li>
+            <li><a routerLink="/search" [queryParams]="{keyword: 'Book'}">Sách</a></li>
+            <li><a routerLink="/search" [queryParams]="{keyword: 'Newspaper'}">Báo chí</a></li>
+            <li><a routerLink="/search" [queryParams]="{keyword: 'CD'}">CD</a></li>
+            <li><a routerLink="/search" [queryParams]="{keyword: 'DVD'}">DVD</a></li>
           </ul>
         </div>
 
         <div class="footer-col links-col">
-          <h4 class="col-title">Company</h4>
+          <h4 class="col-title">Công ty</h4>
           <ul class="footer-links">
-            <li><a routerLink="/">About us</a></li>
-            <li><a routerLink="/">Contact</a></li>
+            <li><a routerLink="/">Về chúng tôi</a></li>
+            <li><a routerLink="/">Liên hệ</a></li>
           </ul>
         </div>
       </footer>

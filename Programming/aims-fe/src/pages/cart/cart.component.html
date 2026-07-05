@@ -6,7 +6,7 @@
       >
         {{ toastMessage }}
       </div>
-      <h1>YOUR CART</h1>
+      <h1>GIỎ HÀNG CỦA BẠN</h1>
       <div class="content-wrapper">
         <div class="cart-items">
           <div class="item" *ngFor="let item of cartService.items(); trackBy: trackByProductId">
@@ -43,14 +43,14 @@
         </div>
 
         <div class="order-summary-card">
-          <p class="summary-title">ORDER SUMMARY</p>
+          <p class="summary-title">TÓM TẮT ĐƠN HÀNG</p>
           <div class="summary-row">
-            <span>Subtotal (excl VAT)</span>
+            <span>Tạm tính (chưa VAT)</span>
             <span>{{ cartService.subTotal() | currency:'VND':'symbol':'1.0-0' }}</span>
           </div>
           <hr />
           <div class="summary-row total">
-            <span>TOTAL ITEMS VALUE</span>
+            <span>TỔNG GIÁ TRỊ</span>
             <span>{{ cartService.subTotal() | currency:'VND':'symbol':'1.0-0' }}</span>
           </div>
 
@@ -59,7 +59,7 @@
             (click)="checkout()"
             [disabled]="isCheckingOut"
           >
-            CHECKOUT
+            THANH TOÁN
           </button>
         </div>
       </div>

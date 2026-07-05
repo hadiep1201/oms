@@ -43,13 +43,13 @@ export class LoginComponent {
           void this.router.navigateByUrl('/admin', { replaceUrl: true });
           return;
         }
-        this.errorMessage.set('You do not have permission to access the system.');
+        this.errorMessage.set('Bạn không có quyền truy cập hệ thống.');
         this.authService.clearLocalSession();
       },
       error: (err: { error?: { message?: string }; message?: string }) => {
         this.loading.set(false);
         this.errorMessage.set(
-          err?.error?.message ?? err?.message ?? 'Login failed. Check username and password.',
+          err?.error?.message ?? err?.message ?? 'Đăng nhập thất bại. Vui lòng kiểm tra lại tài khoản và mật khẩu.',
         );
       },
     });
