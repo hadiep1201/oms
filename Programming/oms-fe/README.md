@@ -1,59 +1,82 @@
-# OMS-FE
+# OMS-FE – Online Media Store (Frontend)
 
-Dự án này được tạo bằng [Angular CLI](https://github.com/angular/angular-cli) phiên bản 21.2.10.
+## Giới thiệu tổng quan
 
-## Máy chủ phát triển (Development server)
+**OMS-FE** là giao diện người dùng của hệ thống **OMS (Online Media Store)** – một nền tảng thương mại điện tử chuyên kinh doanh các sản phẩm truyền thông vật lý gồm Sách, Báo, CD và DVD.
 
-Để khởi động máy chủ phát triển cục bộ, hãy chạy:
+Hệ thống hỗ trợ ba nhóm người dùng:
+- **Khách hàng**: Tìm kiếm, xem sản phẩm, quản lý giỏ hàng, đặt hàng và thanh toán (VietQR / PayPal).
+- **Quản lý sản phẩm**: Quản lý danh mục sản phẩm và xử lý đơn hàng.
+- **Quản trị viên**: Quản lý tài khoản nhân viên và phân quyền hệ thống.
+
+### Công nghệ sử dụng
+
+| Thành phần | Công nghệ |
+|-----------|----------|
+| Framework | Angular 21 (Standalone Components) |
+| Ngôn ngữ | TypeScript |
+| UI | CSS thuần + ng-zorro-antd |
+| Giao tiếp API | Angular HttpClient |
+| Backend | Spring Boot (port `8080`, prefix `/oms/api`) |
+
+---
+
+## Hướng dẫn chạy dự án
+
+### Yêu cầu cần có
+
+- **Node.js** ≥ 18.x và **npm** ≥ 9.x
+- **Angular CLI**: `npm install -g @angular/cli`
+- **Backend OMS** đang chạy tại `http://localhost:8080`
+
+### Các bước thực hiện
+
+#### 1. Cài đặt dependencies
+
+```bash
+npm install
+```
+
+#### 2. Khởi động server phát triển
+
+```bash
+npm start
+```
+
+hoặc:
 
 ```bash
 ng serve
 ```
 
-Sau khi máy chủ khởi chạy, hãy mở trình duyệt và truy cập `http://localhost:4200/`. Ứng dụng sẽ tự động tải lại mỗi khi bạn thay đổi các tệp nguồn.
+Ứng dụng sẽ chạy tại: **http://localhost:4200**
 
-## Tạo mã nguồn mẫu (Code scaffolding)
+Ứng dụng tự động tải lại khi bạn chỉnh sửa mã nguồn.
 
-Angular CLI cung cấp các công cụ tạo mã nguồn mạnh mẽ. Để tạo một component mới, hãy chạy:
+#### 3. Cấu hình URL backend
 
-```bash
-ng generate component component-name
+URL backend được khai báo trực tiếp trong các service (ví dụ `src/services/product.service.ts`):
+
+```
+http://localhost:8080/oms/api/...
 ```
 
-Để xem danh sách đầy đủ các sơ đồ có sẵn (chẳng hạn như `components`, `directives`, hoặc `pipes`), hãy chạy:
+Nếu backend chạy trên cổng khác, hãy cập nhật `baseUrl` trong các file service tương ứng.
 
-```bash
-ng generate --help
-```
+---
 
-## Biên dịch (Building)
+## Các lệnh hữu ích
 
-Để biên dịch dự án, hãy chạy:
+| Lệnh | Mô tả |
+|------|-------|
+| `npm start` | Khởi động server phát triển (port 4200) |
+| `ng build` | Biên dịch production vào thư mục `dist/` |
+| `ng test` | Chạy kiểm thử đơn vị (Vitest) |
+| `ng generate component <name>` | Tạo component mới |
 
-```bash
-ng build
-```
+---
 
-Lệnh này sẽ biên dịch dự án và lưu trữ các sản phẩm biên dịch trong thư mục `dist/`. Theo mặc định, bản biên dịch production sẽ tối ưu hóa ứng dụng để đạt hiệu năng và tốc độ tải tốt nhất.
+## Tài nguyên tham khảo
 
-## Chạy kiểm thử đơn vị (Running unit tests)
-
-Để thực hiện kiểm thử đơn vị với trình chạy thử [Vitest](https://vitest.dev/), hãy sử dụng lệnh sau:
-
-```bash
-ng test
-```
-
-## Chạy kiểm thử đầu cuối (Running end-to-end tests)
-
-Để chạy kiểm thử đầu cuối (e2e), hãy chạy:
-
-```bash
-ng e2e
-```
-
-Angular CLI không đi kèm sẵn khung kiểm thử đầu cuối mặc định. Bạn có thể chọn khung kiểm thử phù hợp nhất với nhu cầu của mình.
-
-## Tài nguyên bổ sung (Additional Resources)
-
-Để biết thêm thông tin về cách sử dụng Angular CLI, bao gồm các tài liệu tham khảo chi tiết về lệnh, hãy truy cập trang [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli).
+- [Angular CLI Documentation](https://angular.dev/tools/cli)
+- [Angular Standalone Components](https://angular.dev/guide/components)
