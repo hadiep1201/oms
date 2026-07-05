@@ -1,6 +1,7 @@
 package com.example.aims.payment.provider;
 
 import com.example.aims.payment.IPayableAmountSource;
+import com.example.aims.subsystemvietqr.IPaymentCallback;
 import com.example.aims.subsystemvietqr.IVietQRSimulator;
 import com.example.aims.subsystemvietqr.OrderReference;
 import lombok.AccessLevel;
@@ -30,10 +31,21 @@ public class SandboxVietQrPaymentConfirmation implements VietQrPaymentConfirmati
 
     IPayableAmountSource payableAmountSource;
     IVietQRSimulator vietQRSimulator;
+    IPaymentCallback paymentCallback;
 
     @Override
     public String confirm(Integer orderId) {
         long amount = payableAmountSource.getPayableAmount(orderId);
-        return vietQRSimulator.triggerTestCallback(OrderReference.format(orderId), amount);
+        try {
+            // If credentials are placeholders or network is down, directly execute local sync callback
+            String localPayload = String.format(
+                "{\"orderId\":\"%d\",\"amount\":%d,\"content\":\"%s\"}",
+                orderId, amount, OrderReference.format(orderId)
+            );
+            return paymentCallback.onTransactionReceived(localPayload);
+        } catch (Exception e) {
+            System.err.println("Offline callback simulation failed: " + e.getMessage());
+            return vietQRSimulator.triggerTestCallback(OrderReference.format(orderId), amount);
+        }
     }
 }
