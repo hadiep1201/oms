@@ -1,0 +1,128 @@
+<div class="detail-container">
+      <!-- Breadcrumb / Back Bar -->
+      <div class="breadcrumb-bar">
+        <button class="back-btn" (click)="goBack()">
+          <span>&larr;</span> Back
+        </button>
+      </div>
+
+      <!-- Loading / Error states -->
+      <div *ngIf="loading()" class="state-message">
+        <div class="spinner"></div>
+        <p>Loading product details...</p>
+      </div>
+
+      <div *ngIf="!loading() && errorMessage()" class="state-message error">
+        <p>⚠️ {{ errorMessage() }}</p>
+        <button class="back-btn" (click)="goBack()">Go Back</button>
+      </div>
+
+      <!-- Main Detail Content -->
+      <div *ngIf="!loading() && product()" class="detail-content">
+        <!-- Top Half: Image & Main Info -->
+        <div class="main-info">
+          <!-- Left side: Product Image -->
+          <div class="image-section">
+            <img 
+              [src]="product().imageUrl || fallbackImage" 
+              [alt]="product().title" 
+              class="product-img"
+              (error)="useFallbackImage($event)"
+            />
+          </div>
+
+          <!-- Right side: Title, Price, Description, Buy Section -->
+          <div class="info-section">
+            <div class="category-status">
+              <span class="category-tag">{{ product().productType || product().category | uppercase }}</span>
+              <span class="status-tag" [class.inactive]="isOutOfStock()">
+                {{ product().status || 'ACTIVE' }}
+              </span>
+            </div>
+
+            <h1 class="product-title">{{ product().title }}</h1>
+
+            <div class="price-row">
+              <span *ngIf="product().originalValue && product().originalValue > product().currentPrice" class="original-price">
+                {{ product().originalValue | currency:'VND':'symbol':'1.0-0' }}
+              </span>
+              <span class="current-price">{{ product().currentPrice | currency:'VND':'symbol':'1.0-0' }}</span>
+            </div>
+
+            <p class="description">{{ product().generalDescription || 'No description available for this product.' }}</p>
+
+            <!-- Quantity & Add to Cart -->
+            <div class="purchase-controls" *ngIf="!isOutOfStock() && canUseStorefrontCart()">
+              <div class="quantity-selector">
+                <button class="qty-btn minus" (click)="decreaseQty()" [disabled]="quantity() <= 1">&minus;</button>
+                <span class="qty-val">{{ quantity() }}</span>
+                <button class="qty-btn plus" (click)="increaseQty()" [disabled]="quantity() >= product().stockQuantity">&plus;</button>
+              </div>
+
+              <button class="add-cart-btn" (click)="addToCart()">
+                <span class="cart-icon">🛒</span> ADD TO CART
+              </button>
+            </div>
+
+            <div class="out-of-stock-msg" *ngIf="isOutOfStock()">
+              <p>❌ Out of Stock / Unavailable</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider line -->
+        <div class="divider"></div>
+
+        <!-- Bottom Half: Technical & Category Specific Info -->
+        <div class="technical-info">
+          <h2 class="section-title">Information detail</h2>
+          
+          <div class="info-grid">
+            <!-- Common Physical Attributes -->
+            <div class="grid-item" *ngIf="product().weight">
+              <span class="label">WEIGHT</span>
+              <span class="value">{{ product().weight | number:'1.0-2' }} KG</span>
+            </div>
+            <div class="grid-item" *ngIf="product().length">
+              <span class="label">LENGTH</span>
+              <span class="value">{{ product().length | number:'1.0-2' }} CM</span>
+            </div>
+            <div class="grid-item" *ngIf="product().width">
+              <span class="label">WIDTH</span>
+              <span class="value">{{ product().width | number:'1.0-2' }} CM</span>
+            </div>
+            <div class="grid-item" *ngIf="product().height">
+              <span class="label">HEIGHT</span>
+              <span class="value">{{ product().height | number:'1.0-2' }} CM</span>
+            </div>
+            <div class="grid-item">
+              <span class="label">QUANTITY</span>
+              <span class="value">{{ product().stockQuantity }}</span>
+            </div>
+            <div class="grid-item" *ngIf="product().barcode">
+              <span class="label">BARCODE</span>
+              <div class="barcode-container">
+                <svg #barcodeSvg class="barcode-img"></svg>
+              </div>
+            </div>
+
+            <!-- Dynamic Specific Fields -->
+            <ng-container *ngFor="let detail of dynamicTechnicalDetails()">
+              <div class="grid-item" [class.full-width]="detail.isArray">
+                <span class="label">{{ detail.label }}</span>
+                <span class="value" *ngIf="!detail.isArray && !detail.isDate">{{ detail.value }}</span>
+                <span class="value" *ngIf="!detail.isArray && detail.isDate">{{ detail.value | date:'dd/MM/yyyy' }}</span>
+                <ul class="tracks-list" *ngIf="detail.isArray">
+                  <li *ngFor="let item of detail.value">{{ item }}</li>
+                </ul>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message toast for add to cart success -->
+      <div *ngIf="toastMessage()" class="toast-message">
+        {{ toastMessage() }}
+      </div>
+    </div>

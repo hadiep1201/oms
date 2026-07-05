@@ -1,0 +1,363 @@
+/* ── Page wrapper ── */
+      .page-wrapper {
+        background: #f3f2f1;
+        min-height: 100vh;
+        font-family: 'Inter', sans-serif;
+      }
+
+      /* ── Step bar ── */
+      .steps-bar {
+        display: flex;
+        align-items: center;
+        padding: 28px 40px 0;
+        gap: 0;
+      }
+      .step {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .step-circle {
+        width: 31px;
+        height: 31px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #d9d9d9;
+        color: #000;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .step-label {
+        font-size: 13px;
+        font-weight: 700;
+        color: #000;
+        letter-spacing: 0.5px;
+      }
+      .step-connector {
+        width: 224px;
+        height: 1px;
+        background: #d4d2d2;
+        margin: 0 16px;
+      }
+
+      /* ── Main layout ── */
+      .payment-layout {
+        display: flex;
+        gap: 32px;
+        padding: 28px 40px 60px;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .left-panel {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .right-panel {
+        width: 440px;
+        flex-shrink: 0;
+      }
+
+      /* ── Panel header ── */
+      .panel-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+      }
+      .panel-title {
+        font-size: 30px;
+        font-weight: 700;
+        margin: 0;
+        color: #000;
+      }
+      .back-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-decoration: underline;
+        font-size: 18px;
+        font-weight: 700;
+        color: #000;
+      }
+
+      /* ── Info card ── */
+      .info-card {
+        background: #d9d9d9;
+        border-radius: 20px;
+        padding: 16px 20px 16px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .info-row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 10px 0;
+      }
+      .info-icon {
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+      .info-divider {
+        height: 1px;
+        background: #e1e1e1;
+        margin: 0 0 0 34px;
+      }
+      .info-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #8e8e8e;
+        margin: 0 0 3px;
+      }
+      .info-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000;
+        margin: 0 0 2px;
+      }
+      .info-sub {
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+        margin: 0;
+      }
+
+      /* ── Payment method cards ── */
+      .method-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .method-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        border-radius: 20px;
+        padding: 14px 18px;
+        cursor: pointer;
+      }
+      .vietqr-card {
+        background: #fbfbfb;
+        border: 1px solid #000;
+      }
+      .vietqr-card.selected {
+        border: 2px solid #000;
+      }
+      .paypal-card {
+        background: #d9d9d9;
+        border: 1px solid transparent;
+      }
+      .paypal-card.selected {
+        border: 2px solid #000;
+      }
+      .method-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .method-name {
+        font-size: 14px;
+        font-weight: 800;
+        margin: 0 0 3px;
+        color: #000;
+      }
+      .method-desc {
+        font-size: 14px;
+        font-weight: 300;
+        color: #000;
+        margin: 0;
+      }
+
+      /* ── QR area ── */
+      .qr-area {
+        display: flex;
+        gap: 32px;
+        align-items: flex-start;
+      }
+      .qr-loading {
+        color: #777;
+        font-size: 14px;
+      }
+      .qr-error {
+        color: #c0392b;
+        font-size: 14px;
+      }
+      .qr-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        min-width: 180px;
+      }
+      .vietqr-brand {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+      .brand-v {
+        color: #e31837;
+      }
+      .brand-rest {
+        color: #003087;
+      }
+      .qr-img {
+        width: 220px;
+        height: 260px;
+        object-fit: contain;
+      }
+      .qr-footer {
+        display: flex;
+        gap: 12px;
+        font-size: 11px;
+        color: #555;
+      }
+      .qr-bank {
+        font-weight: 600;
+      }
+
+      /* ── Timer ── */
+      .timer-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 32px;
+      }
+      .timer-label {
+        font-size: 26px;
+        font-weight: 800;
+        color: #000;
+        margin: 0 0 12px;
+        line-height: 1.2;
+      }
+      .timer-value {
+        font-size: 40px;
+        font-weight: 800;
+        color: #ff0000;
+        margin: 0;
+      }
+      .timer-value.urgent {
+        color: #c0392b;
+      }
+
+      /* ── Purchase button ── */
+      .purchase-btn {
+        display: block;
+        width: 421px;
+        padding: 18px;
+        border-radius: 31px;
+        background: #000;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .purchase-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .purchase-btn:not(:disabled):hover {
+        opacity: 0.82;
+      }
+
+      /* ── Order summary ── */
+      .summary-card {
+        background: #fff;
+        border-radius: 35px;
+        padding: 24px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .summary-title {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #6b6b6b;
+        margin: 0;
+      }
+      .summary-divider {
+        height: 1px;
+        background: #8e8e8e;
+        margin: 2px 0;
+      }
+      .summary-divider.light {
+        background: #e1e1e1;
+        opacity: 0.8;
+      }
+
+      .summary-items {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      .summary-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .item-thumb {
+        width: 71px;
+        height: 71px;
+        object-fit: cover;
+        border-radius: 6px;
+        background: #eee;
+        flex-shrink: 0;
+      }
+      .item-meta {
+        flex: 1;
+      }
+      .item-name {
+        font-size: 14px;
+        font-weight: 700;
+        margin: 0 0 4px;
+        color: #000;
+      }
+      .item-qty {
+        font-size: 12px;
+        font-weight: 300;
+        color: #000;
+        margin: 0;
+      }
+      .item-price {
+        font-size: 14px;
+        font-weight: 700;
+        white-space: nowrap;
+        color: #000;
+      }
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+        color: #000;
+      }
+      .total-row {
+        font-size: 25px;
+        font-weight: 700;
+      }
+      .toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1100;
+        padding: 12px 16px;
+        border-radius: 8px;
+        color: #fff;
+        font-weight: 600;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+      .toast.error {
+        background: #c0392b;
+      }
+      .toast.success {
+        background: #1e8449;
+      }

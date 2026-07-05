@@ -1,0 +1,118 @@
+<section class="product-list-page">
+      <div class="page-header">
+        <h1 class="page-title">List of product</h1>
+        <div class="header-actions">
+          @if (hasSelection()) {
+            <button type="button" class="delete-btn" (click)="openDeleteConfirm()">
+              Delete product
+            </button>
+          }
+          <button type="button" class="add-btn" (click)="openAddModal()">Add product</button>
+        </div>
+      </div>
+
+      @if (loadError()) {
+        <p class="load-error">{{ loadError() }}</p>
+      }
+
+      <div class="table-card">
+        @if (loading()) {
+          <p class="load-hint">Loading products…</p>
+        } @else if (!products().length && !loadError()) {
+          <p class="load-hint">No products in catalog.</p>
+        } @else {
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th class="col-check">
+                <input
+                  type="checkbox"
+                  aria-label="Select all"
+                  [checked]="isAllSelected()"
+                  [indeterminate]="isIndeterminate()"
+                  (change)="onSelectAllChange($event)"
+                />
+              </th>
+              <th>PRODUCT</th>
+              <th>CATEGORY</th>
+              <th>PRICE</th>
+              <th>STOCK</th>
+              <th>STATUS</th>
+              <th class="col-action"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (product of products(); track product.id) {
+              <tr [class.row-deactivated]="isDeactivated(product)">
+                <td class="col-check">
+                  <input
+                    type="checkbox"
+                    [checked]="isSelected(product.id)"
+                    [disabled]="isDeactivated(product)"
+                    [attr.aria-label]="'Select ' + product.title"
+                    (change)="onSelectChange(product.id, $event)"
+                  />
+                </td>
+                <td class="col-product">{{ product.title }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.currentPrice | currency: 'VND' : 'symbol' : '1.0-0' }}</td>
+                <td>{{ product.stockQuantity }}</td>
+                <td class="col-status" [class.status-deactivated]="isDeactivated(product)">
+                  {{ formatStatus(product.status) }}
+                </td>
+                <td class="col-action">
+                  <button
+                    type="button"
+                    class="tag-btn"
+                    aria-label="Edit product"
+                    (click)="openEditModal(product.id)"
+                  >
+                    <span nz-icon nzType="tag" nzTheme="outline"></span>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        }
+      </div>
+    </section>
+
+    @if (showAddModal()) {
+      <app-add-product-modal mode="create" (closed)="closeAddModal()" (saved)="onProductSaved()" />
+    }
+
+    @if (editingProductId() !== null) {
+      <app-add-product-modal
+        mode="edit"
+        [productId]="editingProductId()!"
+        (closed)="closeEditModal()"
+        (saved)="onProductSaved()"
+      />
+    }
+
+    @if (showDeleteConfirm()) {
+      <div class="confirm-backdrop" (click)="closeDeleteConfirm()">
+        <div class="confirm-box" role="alertdialog" aria-labelledby="delete-confirm-title" (click)="$event.stopPropagation()">
+          <p id="delete-confirm-title" class="confirm-message">Are you sure you want to delete it?</p>
+          @if (deleteError()) {
+            <p class="confirm-error">{{ deleteError() }}</p>
+          }
+          <div class="confirm-actions">
+            <button type="button" class="confirm-btn no" (click)="closeDeleteConfirm()">No</button>
+            <button type="button" class="confirm-btn yes" (click)="confirmDelete()">Yes</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (showDeleteSummary()) {
+      <div class="confirm-backdrop" (click)="closeDeleteSummary()">
+        <div class="confirm-box" role="status" (click)="$event.stopPropagation()">
+          <p class="confirm-message">{{ deleteSummaryMessage() }}</p>
+          <div class="confirm-actions">
+            <button type="button" class="confirm-btn yes" (click)="closeDeleteSummary()">OK</button>
+          </div>
+        </div>
+      </div>
+    }

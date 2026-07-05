@@ -1,0 +1,42 @@
+<div class="user-list-container">
+      <div class="header">
+        <h2>User Management</h2>
+        <button class="btn btn-primary" routerLink="/admin/users/new">Create New User</button>
+      </div>
+
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Avatar</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.userId }}</td>
+            <td>
+              <img [src]="user.avatarUrl || 'https://via.placeholder.com/40'" class="avatar" alt="Avatar"/>
+            </td>
+            <td>{{ user.userName }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="user.status ? user.status.toLowerCase() : ''">{{ user.status || 'UNKNOWN' }}</span>
+            </td>
+            <td class="actions">
+              <button class="btn btn-sm btn-outline" [routerLink]="['/admin/users/view', user.userId]" style="margin-right: 5px;">View</button>
+              <button class="btn btn-sm btn-outline" [routerLink]="['/admin/users/edit', user.userId]">Edit</button>
+              <button 
+                *ngIf="user.status !== 'DEACTIVATED'" 
+                class="btn btn-sm btn-danger" 
+                (click)="deactivateUser(user.userId)">
+                Deactivate
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>

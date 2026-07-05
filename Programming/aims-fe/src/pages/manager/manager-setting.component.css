@@ -1,0 +1,13 @@
+.manager-shell {
+      flex: 1;
+      display: flex;
+      align-items: stretch;
+      min-height: calc(100vh - 140px);
+      background-color: #f3f4f6;
+    }
+
+    .manager-content {
+      flex: 1;
+      background-color: #ececec;
+      min-height: 100%;
+    }

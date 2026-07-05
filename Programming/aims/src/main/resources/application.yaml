@@ -1,0 +1,65 @@
+server:
+  servlet:
+    context-path: /aims
+  port: 8080
+
+spring:
+  config:
+    import: optional:file:.env[.properties]
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+  datasource:
+    url: jdbc:postgresql://localhost:5435/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 3000 # Fail fast in 3 seconds if DB is unreachable
+
+  jackson:
+    time-zone: ${TZ:Asia/Ho_Chi_Minh}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: ${TZ:Asia/Ho_Chi_Minh}
+    show-sql: true
+
+vietqr:
+  username: ${VIETQR_USERNAME}
+  password: ${VIETQR_PASSWORD}
+  bank-code: ${VIETQR_BANK_CODE}
+  bank-account: ${VIETQR_BANK_ACCOUNT}
+  user-bank-name: ${VIETQR_USER_BANK_NAME}
+  get-token-url: https://dev.vietqr.org/vqr/api/token_generate
+  generate-qr-url: https://dev.vietqr.org/vqr/api/qr/generate-customer
+  check-status-url: https://dev.vietqr.org/vqr/api/transaction/sync
+  callback-username: aimsgroup6
+  callback-password: Aims2026
+payment:
+  paypal:
+    client-id: ${PAYPAL_CLIENT_ID:}
+    secret-key: ${PAYPAL_SECRET_KEY:}
+    base-url: ${PAYPAL_BASE_URL:https://api-m.sandbox.paypal.com}
+    return-url: ${PAYPAL_RETURN_URL:http://localhost:4200/payment}
+    cancel-url: ${PAYPAL_CANCEL_URL:http://localhost:4200/payment?paypalStatus=cancelled}
+    vnd-to-usd-rate: ${PAYPAL_VND_TO_USD_RATE:25000}
+brevo:
+  api-key: ${BREVO_API_KEY:}
+  sender-name: ${BREVO_SENDER_NAME:AIMS}
+  sender-email: ${BREVO_SENDER_EMAIL:}
+shipping:
+  fee:
+    strategy-type: ACTUAL_WEIGHT
+
+jwt:
+  secret: ${JWT_SECRET}
+  access-expiration-ms: ${JWT_ACCESS_EXPIRATION_MS}
+  refresh-expiration-days: ${JWT_REFRESH_EXPIRATION_DAYS}

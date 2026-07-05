@@ -1,0 +1,18 @@
+.manager-page {
+      width: 100%;
+      min-height: 480px;
+      padding: 2rem 2.5rem;
+      color: #111;
+    }
+
+    .manager-page h1 {
+      margin: 0 0 0.75rem;
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .manager-page p {
+      margin: 0;
+      font-size: 1rem;
+      color: #4b5563;
+    }

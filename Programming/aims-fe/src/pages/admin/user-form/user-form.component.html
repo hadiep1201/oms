@@ -1,0 +1,31 @@
+<div class="user-form-container">
+      <div class="header">
+        <h2>{{ isEditMode ? 'Edit User' : 'Create New User' }}</h2>
+        <button class="btn btn-outline" routerLink="/admin/users">Back to List</button>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="form-card">
+        <div class="form-group">
+          <label for="userName">Name</label>
+          <input type="text" id="userName" name="userName" [(ngModel)]="formData.userName" required class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" [(ngModel)]="formData.email" required class="form-control">
+        </div>
+        
+        <div class="form-group">
+          <label for="avatarUrl">Avatar URL</label>
+          <input type="text" id="avatarUrl" name="avatarUrl" [(ngModel)]="formData.avatarUrl" class="form-control">
+        </div>
+
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+
+        <button type="submit" [disabled]="!userForm.form.valid" class="btn btn-primary submit-btn">
+          {{ isEditMode ? 'Update' : 'Create' }}
+        </button>
+      </form>
+    </div>

@@ -1,0 +1,66 @@
+<div class="cart-container">
+      <div
+        *ngIf="toastMessage"
+        class="toast"
+        [class.error]="toastType === 'error'"
+      >
+        {{ toastMessage }}
+      </div>
+      <h1>YOUR CART</h1>
+      <div class="content-wrapper">
+        <div class="cart-items">
+          <div class="item" *ngFor="let item of cartService.items(); trackBy: trackByProductId">
+            <img [src]="item.product.imageUrl || 'https://via.placeholder.com/60x80'" alt="product image" class="item-img" />
+            <div class="item-details">
+              <h4>{{ item.product.title }}</h4>
+              <div class="quantity-selector">
+                <button
+                  class="qty-btn minus"
+                  (click)="changeQuantity(item.productId, item.quantity - 1)"
+                  [disabled]="item.quantity <= 1"
+                >&minus;</button>
+                <input
+                  class="qty-input"
+                  type="number"
+                  min="1"
+                  inputmode="numeric"
+                  [value]="getQuantityDraft(item.productId, item.quantity)"
+                  (input)="onQuantityInput(item.productId, $any($event.target).value)"
+                  (blur)="commitQuantityInput(item.productId, item.quantity)"
+                  (keydown.enter)="commitQuantityInput(item.productId, item.quantity)"
+                />
+                <button
+                  class="qty-btn plus"
+                  (click)="changeQuantity(item.productId, item.quantity + 1)"
+                >&plus;</button>
+              </div>
+            </div>
+            <div class="item-actions">
+              <span class="delete-btn" (click)="cartService.removeItem(item.productId)">🗑️</span>
+              <p class="price">{{ (item.product.currentPrice * item.quantity) | currency:'VND':'symbol':'1.0-0' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-summary-card">
+          <p class="summary-title">ORDER SUMMARY</p>
+          <div class="summary-row">
+            <span>Subtotal (excl VAT)</span>
+            <span>{{ cartService.subTotal() | currency:'VND':'symbol':'1.0-0' }}</span>
+          </div>
+          <hr />
+          <div class="summary-row total">
+            <span>TOTAL ITEMS VALUE</span>
+            <span>{{ cartService.subTotal() | currency:'VND':'symbol':'1.0-0' }}</span>
+          </div>
+
+          <button
+            class="checkout-btn"
+            (click)="checkout()"
+            [disabled]="isCheckingOut"
+          >
+            CHECKOUT
+          </button>
+        </div>
+      </div>
+    </div>

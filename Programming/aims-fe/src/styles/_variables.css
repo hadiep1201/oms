@@ -1,0 +1,11 @@
+:root {
+  --color-bg-page: #f3f4f6;
+  --color-header-bg: #f8e9ba;
+  --color-footer-bg: #eaeaea;
+  --color-text: #333;
+  --color-text-muted: #555;
+
+  --font-header: Arial, sans-serif;
+  --font-main: 'Roboto', sans-serif;
+  --font-footer: 'Inter', sans-serif;
+}

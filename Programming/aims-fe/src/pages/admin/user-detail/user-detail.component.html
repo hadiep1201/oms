@@ -1,0 +1,53 @@
+<div class="user-detail-container" *ngIf="user">
+  <div class="header">
+    <h2>User Profile</h2>
+    <div>
+      <button class="btn btn-outline" routerLink="/admin/users">Back to List</button>
+      <button class="btn btn-primary" [routerLink]="['/admin/users/edit', user.userId]" style="margin-left: 10px;">Edit Basic Info</button>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <div class="profile-header">
+      <img [src]="user.avatarUrl || 'https://via.placeholder.com/100'" alt="Avatar" class="profile-avatar" />
+      <div class="profile-info">
+        <h3>{{ user.userName }}</h3>
+        <p class="email">{{ user.email }}</p>
+        <span class="status-badge" [ngClass]="user.status ? user.status.toLowerCase() : ''">{{ user.status || 'UNKNOWN' }}</span>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="advanced-actions">
+      <h3>Advanced Actions</h3>
+      <p class="description">Administrative actions for managing this user account.</p>
+      
+      <div class="action-grid">
+        <div class="action-card">
+          <h4>Security</h4>
+          <p>Reset or change the user's password.</p>
+          <button class="btn btn-action" (click)="notImplemented('Change Password')">Change Password</button>
+        </div>
+
+        <div class="action-card">
+          <h4>Roles & Permissions</h4>
+          <p>Assign or modify user roles.</p>
+          <button class="btn btn-action" (click)="notImplemented('Set User Roles')">Manage Roles</button>
+        </div>
+
+        <div class="action-card">
+          <h4>Account Status</h4>
+          <p>Block or unblock access to the system.</p>
+          <button class="btn btn-danger" (click)="notImplemented('Block/Unblock User')">
+            {{ user.status === 'ACTIVE' ? 'Block User' : 'Unblock User' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="user-detail-container" *ngIf="loading">
+  <p>Loading user details...</p>
+</div>

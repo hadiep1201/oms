@@ -1,0 +1,11 @@
+:host {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .admin-page {
+      flex: 1;
+      min-height: calc(100vh - 72px);
+      background: #ffffff;
+    }

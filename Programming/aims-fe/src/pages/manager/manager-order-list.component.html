@@ -1,0 +1,218 @@
+<section class="order-list-page">
+      <div class="page-header">
+        <h1 class="page-title">Pending orders</h1>
+        <div class="header-actions">
+          <button type="button" class="refresh-btn" (click)="loadOrders()" [disabled]="loading()">
+            <span nz-icon nzType="reload" nzTheme="outline"></span>
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      @if (loadError()) {
+        <p class="load-error">{{ loadError() }}</p>
+      }
+
+      @if (actionError()) {
+        <p class="load-error">{{ actionError() }}</p>
+      }
+
+      <div class="table-card">
+        @if (loading()) {
+          <p class="load-hint">Loading orders...</p>
+        } @else if (!orders().length && !loadError()) {
+          <p class="load-hint">No pending orders.</p>
+        } @else {
+          <table class="order-table">
+            <thead>
+              <tr>
+                <th>ORDER</th>
+                <th>CUSTOMER</th>
+                <th>CITY</th>
+                <th>TOTAL</th>
+                <th>PAYMENT</th>
+                <th>STATUS</th>
+                <th>CREATED</th>
+                <th class="col-action">ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (order of orders(); track order.orderId) {
+                <tr>
+                  <td class="col-order">#{{ order.orderId }}</td>
+                  <td>
+                    <span class="customer-name">{{ order.customerName || 'N/A' }}</span>
+                    <span class="customer-email">{{ order.email || 'N/A' }}</span>
+                  </td>
+                  <td>{{ order.city || 'N/A' }}</td>
+                  <td>{{ order.totalAmount | currency: 'VND' : 'symbol' : '1.0-0' }}</td>
+                  <td>{{ formatPayment(order.paymentMethod) }}</td>
+                  <td>
+                    <span class="status-pill">{{ formatStatus(order.orderStatus) }}</span>
+                  </td>
+                  <td>{{ order.createdDate | date: 'short' }}</td>
+                  <td class="col-action">
+                    <button
+                      type="button"
+                      class="icon-btn"
+                      title="View order"
+                      aria-label="View order"
+                      (click)="openDetails(order.orderId)"
+                    >
+                      <span nz-icon nzType="eye" nzTheme="outline"></span>
+                    </button>
+                    <button
+                      type="button"
+                      class="icon-btn approve"
+                      title="Approve order"
+                      aria-label="Approve order"
+                      [disabled]="isActionRunning(order.orderId)"
+                      (click)="openApproveConfirm(order)"
+                    >
+                      <span nz-icon nzType="check" nzTheme="outline"></span>
+                    </button>
+                    <button
+                      type="button"
+                      class="icon-btn reject"
+                      title="Reject order"
+                      aria-label="Reject order"
+                      [disabled]="isActionRunning(order.orderId)"
+                      (click)="openRejectConfirm(order)"
+                    >
+                      <span nz-icon nzType="close" nzTheme="outline"></span>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+      </div>
+
+      @if (totalPages() > 1) {
+        <div class="pager">
+          <button type="button" class="pager-btn" [disabled]="!canGoPrevious()" (click)="goPrevious()">
+            Previous
+          </button>
+          <span>Page {{ page() + 1 }} of {{ totalPages() }}</span>
+          <button type="button" class="pager-btn" [disabled]="!canGoNext()" (click)="goNext()">
+            Next
+          </button>
+        </div>
+      }
+    </section>
+
+    @if (selectedOrder(); as order) {
+      <div class="confirm-backdrop" (click)="closeDetails()">
+        <div class="detail-box" role="dialog" aria-labelledby="order-detail-title" (click)="$event.stopPropagation()">
+          <div class="detail-header">
+            <div>
+              <p class="detail-eyebrow">Order #{{ order.orderId }}</p>
+              <h2 id="order-detail-title" class="detail-title">{{ order.customerName || 'Customer' }}</h2>
+            </div>
+            <button type="button" class="icon-btn" aria-label="Close details" (click)="closeDetails()">
+              <span nz-icon nzType="close" nzTheme="outline"></span>
+            </button>
+          </div>
+
+          <div class="detail-grid">
+            <div>
+              <span class="detail-label">Email</span>
+              <strong>{{ order.email || 'N/A' }}</strong>
+            </div>
+            <div>
+              <span class="detail-label">Phone</span>
+              <strong>{{ order.phoneNumber || 'N/A' }}</strong>
+            </div>
+            <div>
+              <span class="detail-label">City</span>
+              <strong>{{ order.city || 'N/A' }}</strong>
+            </div>
+            <div>
+              <span class="detail-label">Payment</span>
+              <strong>{{ formatPayment(order.paymentMethod) }}</strong>
+            </div>
+            <div class="detail-wide">
+              <span class="detail-label">Address</span>
+              <strong>{{ order.shippingAddress || 'N/A' }}</strong>
+            </div>
+          </div>
+
+          <div class="items-list">
+            @for (item of order.orderItems; track item.productId) {
+              <div class="item-row">
+                <div>
+                  <strong>{{ item.productTitle }}</strong>
+                  <span>Qty {{ item.quantity }} / Stock {{ item.availableQuantity }}</span>
+                </div>
+                <span>{{ item.itemTotal | currency: 'VND' : 'symbol' : '1.0-0' }}</span>
+              </div>
+            }
+          </div>
+
+          @if (order.refundStatus || order.refundType || order.refundNote) {
+            <div class="refund-info">
+              <strong>{{ order.refundType || 'Refund' }}: {{ order.refundStatus || 'N/A' }}</strong>
+              <span>{{ order.refundNote || 'N/A' }}</span>
+            </div>
+          }
+
+          <div class="detail-footer">
+            <strong>{{ order.totalAmount | currency: 'VND' : 'symbol' : '1.0-0' }}</strong>
+            <div class="detail-actions">
+              <button type="button" class="confirm-btn no" (click)="closeDetails()">Close</button>
+              <button type="button" class="confirm-btn reject" (click)="openRejectConfirm(order)">Reject</button>
+              <button type="button" class="confirm-btn yes" (click)="openApproveConfirm(order)">Approve</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (approveTarget(); as order) {
+      <div class="confirm-backdrop" (click)="closeApproveConfirm()">
+        <div class="confirm-box" role="alertdialog" aria-labelledby="approve-confirm-title" (click)="$event.stopPropagation()">
+          <p id="approve-confirm-title" class="confirm-message">
+            Approve order #{{ order.orderId }}?
+          </p>
+          <div class="confirm-actions">
+            <button type="button" class="confirm-btn no" (click)="closeApproveConfirm()">No</button>
+            <button
+              type="button"
+              class="confirm-btn yes"
+              [disabled]="isActionRunning(order.orderId)"
+              (click)="confirmApprove()"
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (rejectTarget(); as order) {
+      <div class="confirm-backdrop" (click)="closeRejectConfirm()">
+        <div class="confirm-box reject-box" role="alertdialog" aria-labelledby="reject-confirm-title" (click)="$event.stopPropagation()">
+          <p id="reject-confirm-title" class="confirm-message">
+            Reject order #{{ order.orderId }}?
+          </p>
+          <textarea
+            class="reason-input"
+            rows="4"
+            placeholder="Reason"
+            [(ngModel)]="rejectReason"
+          ></textarea>
+          <div class="confirm-actions">
+            <button type="button" class="confirm-btn no" (click)="closeRejectConfirm()">No</button>
+            <button
+              type="button"
+              class="confirm-btn reject"
+              [disabled]="isActionRunning(order.orderId)"
+              (click)="confirmReject()"
+            >
+              Reject
+            </button>
+          </div>
+        </div>
+      </div>
+    }

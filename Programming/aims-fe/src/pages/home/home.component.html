@@ -1,0 +1,51 @@
+<section class="hero">
+      <div class="hero-copy">
+        <h1>AIMS<br />COLLECTIONS</h1>
+        <p>
+          AIMS is the leading platform for purchasing multimedia, books, CDs, DVDs, and newspapers securely and effortlessly.
+        </p>
+      </div>
+    </section>
+
+    <section class="featured">
+      <div class="section-title">
+        <h2>Featured products</h2>
+      </div>
+
+      <p *ngIf="isLoading()" class="state-message">Loading products...</p>
+      <p *ngIf="!isLoading() && errorMessage()" class="state-message">{{ errorMessage() }}</p>
+      <p *ngIf="!isLoading() && !errorMessage() && products().length === 0" class="state-message">
+        No featured products available.
+      </p>
+
+      <div *ngIf="toastMessage()" class="toast-message">
+        {{ toastMessage() }}
+      </div>
+
+      <div *ngIf="!isLoading() && !errorMessage() && products().length > 0" class="product-grid">
+        <article class="product-card" *ngFor="let product of products()">
+          <a class="product-link" [routerLink]="['/product', product.id]">
+            <div class="product-image-wrap">
+              <img
+                [src]="product.imageUrl || fallbackImage"
+                [alt]="product.title"
+                class="product-image"
+                (error)="useFallbackImage($event)"
+              />
+            </div>
+            <h3>{{ product.title }}</h3>
+            <p *ngIf="product.originalValue" class="original-price">
+              {{ formatPrice(product.originalValue) }}
+            </p>
+            <p class="current-price">{{ formatPrice(product.currentPrice) }}</p>
+          </a>
+          <button
+            *ngIf="canUseStorefrontCart()"
+            class="add-to-cart-btn"
+            (click)="addToCart(product)"
+          >
+            Add to Cart
+          </button>
+        </article>
+      </div>
+    </section>

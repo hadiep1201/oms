@@ -1,0 +1,18 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-header);
+  box-sizing: border-box;
+  background-color: var(--color-bg-page);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+.anticon {
+  vertical-align: -0.125em;
+}

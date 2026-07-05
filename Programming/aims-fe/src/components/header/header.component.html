@@ -1,0 +1,75 @@
+<header class="aims-header">
+      @if (isAdminSession()) {
+        <span class="logo-placeholder logo-disabled">AIMS</span>
+        @if (!isLoginPage()) {
+          <nav class="nav-links">
+            <span class="nav-link-disabled">Home</span>
+            <span class="nav-link-disabled">Books</span>
+            <span class="nav-link-disabled">Newspapers</span>
+            <span class="nav-link-disabled">CDs</span>
+            <span class="nav-link-disabled">DVDs</span>
+          </nav>
+        }
+        <div class="header-actions">
+          <span class="icon-btn icon-btn-disabled" aria-hidden="true">
+            <span nz-icon nzType="search" nzTheme="outline"></span>
+          </span>
+          <div class="manager-user">
+            <span nz-icon nzType="user" nzTheme="outline"></span>
+            <span class="manager-label">{{ managerLabel() }}</span>
+          </div>
+          <button type="button" class="logout-btn" (click)="onLogout()">Logout</button>
+        </div>
+      } @else {
+        <a class="logo-placeholder" routerLink="/">AIMS</a>
+        @if (!isLoginPage()) {
+          <nav class="nav-links">
+            <a routerLink="/">Home</a>
+            @if (isManagerPage()) {
+              <a routerLink="/manager">Books</a>
+              <a routerLink="/manager">Newspapers</a>
+              <a routerLink="/manager">CDs</a>
+              <a routerLink="/manager">DVDs</a>
+            } @else {
+              <a routerLink="/search" [queryParams]="{keyword: 'Book', fromCategory: 'true'}">Books</a>
+              <a routerLink="/search" [queryParams]="{keyword: 'Newspaper', fromCategory: 'true'}">Newspapers</a>
+              <a routerLink="/search" [queryParams]="{keyword: 'CD', fromCategory: 'true'}">CDs</a>
+              <a routerLink="/search" [queryParams]="{keyword: 'DVD', fromCategory: 'true'}">DVDs</a>
+            }
+          </nav>
+        }
+        <div class="header-actions">
+          @if (isSearchPage()) {
+            <div class="search-container">
+              <input #searchInput type="text" [value]="searchQuery()" placeholder="Search..." (keyup.enter)="onSearch(searchInput.value)" />
+              <button type="button" class="icon-btn" aria-label="Search" (click)="onSearch(searchInput.value)">
+                <span nz-icon nzType="search" nzTheme="outline"></span>
+              </button>
+            </div>
+          } @else {
+            <button type="button" class="icon-btn" aria-label="Search" (click)="goToSearchPage()">
+              <span nz-icon nzType="search" nzTheme="outline"></span>
+            </button>
+          }
+          @if (isManagerLoggedIn()) {
+            @if (!isManagerPage()) {
+              <a routerLink="/manager" class="manager-portal-link">Manager</a>
+            }
+            <div class="manager-user">
+              <span nz-icon nzType="user" nzTheme="outline"></span>
+              <span class="manager-label">{{ managerLabel() }}</span>
+            </div>
+            <button type="button" class="logout-btn" (click)="onLogout()">Logout</button>
+          } @else if (!isLoginPage()) {
+            <a routerLink="/cart" class="icon-btn" aria-label="Cart">🛒</a>
+            <a routerLink="/login" class="icon-btn" aria-label="Account">
+              <span nz-icon nzType="user" nzTheme="outline"></span>
+            </a>
+          } @else {
+            <a routerLink="/login" class="icon-btn" aria-label="Account">
+              <span nz-icon nzType="user" nzTheme="outline"></span>
+            </a>
+          }
+        </div>
+      }
+    </header>

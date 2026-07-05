@@ -1,0 +1,51 @@
+<section class="success-shell" *ngIf="order; else noOrder">
+      <div class="hero-card">
+        <div class="hero-icon">✓</div>
+        <h1>ORDER SUCCESS!</h1>
+        <p class="hero-copy">
+          Thank you for your purchase. Your order #{{ order.orderId }} has been placed successfully.
+        </p>
+
+        <div class="hero-grid">
+          <div class="hero-metric">
+            <span>Confirmation sent</span>
+            <strong>{{ order.email }}</strong>
+          </div>
+          <div class="hero-metric">
+            <span>Total amount</span>
+            <strong>{{ formatVND(order.totalAmount) }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <article class="info-card">
+          <h2>Shipping Information</h2>
+          <div class="info-row"><span>Customer Name</span><strong>{{ order.customerName }}</strong></div>
+          <div class="info-row"><span>Phone Number</span><strong>{{ order.phoneNumber }}</strong></div>
+          <div class="info-row"><span>Shipping Address</span><strong>{{ order.shippingAddress }}</strong></div>
+          <div class="info-row"><span>City</span><strong>{{ order.city }}</strong></div>
+          <div class="info-row"><span>Delivery Status</span><strong>{{ order.orderStatus }}</strong></div>
+        </article>
+
+        <article class="info-card">
+          <h2>Transaction Information</h2>
+          <div class="info-row"><span>Transaction ID</span><strong>{{ order.transactionId }}</strong></div>
+          <div class="info-row"><span>Transaction Content</span><strong>{{ order.transactionContent }}</strong></div>
+          <div class="info-row">
+            <span>Transaction Datetime</span>
+            <strong>{{ order.transactionDatetime | date:'HH:mm:ss dd/MM/yyyy' }}</strong>
+          </div>
+          <div class="info-row"><span>Payment Method</span><strong>{{ order.paymentMethod }}</strong></div>
+        </article>
+      </div>
+
+      <button class="continue-btn" (click)="continueShopping()">CONTINUE SHOPPING</button>
+    </section>
+
+    <ng-template #noOrder>
+      <section class="empty-shell">
+        <h1>Order result is unavailable</h1>
+        <button class="continue-btn" (click)="continueShopping()">BACK TO CART</button>
+      </section>
+    </ng-template>

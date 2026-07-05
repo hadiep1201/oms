@@ -1,0 +1,230 @@
+<div class="page-wrapper">
+      <div
+        *ngIf="toastMessage"
+        class="toast"
+        [class.error]="toastType === 'error'"
+        [class.success]="toastType === 'success'"
+      >
+        {{ toastMessage }}
+      </div>
+      <!-- ── Step indicator ── -->
+      <div class="steps-bar">
+        <div class="step done">
+          <span class="step-circle">1</span>
+          <span class="step-label">DELIVERY</span>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step active">
+          <span class="step-circle">2</span>
+          <span class="step-label">PAYMENT</span>
+        </div>
+      </div>
+
+      <!-- ── Main layout ── -->
+      <div class="payment-layout">
+        <!-- ────── LEFT PANEL ────── -->
+        <div class="left-panel">
+          <!-- Header -->
+          <div class="panel-header">
+            <h2 class="panel-title">PAYMENT</h2>
+            <button class="back-btn" (click)="goBack()">back to...</button>
+          </div>
+
+          <!-- Shipping summary card -->
+          <div class="info-card">
+            <div class="info-row">
+              <svg
+                class="info-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#8E8E8E"
+                stroke-width="2"
+                width="22"
+                height="22"
+              >
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                <circle cx="12" cy="9" r="2.5" />
+              </svg>
+              <div>
+                <p class="info-label">SHIPPING TO</p>
+                <p class="info-value">{{ deliveryInfo?.address || '—' }}</p>
+                <p class="info-sub">{{ deliveryInfo?.city }}</p>
+              </div>
+            </div>
+            <div class="info-divider"></div>
+            <div class="info-row">
+              <svg
+                class="info-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#8E8E8E"
+                stroke-width="1.6"
+                width="26"
+                height="26"
+              >
+                <rect x="1" y="3" width="15" height="13" rx="1" />
+                <path d="M16 8h4l3 4v5h-7V8z" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
+              </svg>
+              <div>
+                <p class="info-label">DELIVERY METHOD</p>
+                <p class="info-value">Standard shipping</p>
+                <p class="info-sub">Estimated delivery: 2-3 days</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment method selector -->
+          <div class="method-list">
+            <div
+              class="method-card vietqr-card"
+              [class.selected]="selectedMethod === 'vietqr'"
+              (click)="selectMethod('vietqr')"
+            >
+              <div class="method-icon vietqr-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  width="32"
+                  height="32"
+                >
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                  <path d="M14 14h3v3h-3z M17 17h3v3h-3z M14 20h3" />
+                </svg>
+              </div>
+              <div>
+                <p class="method-name">VIETQR (SCAN TO PAY)</p>
+                <p class="method-desc">Instant payment via your banking app</p>
+              </div>
+            </div>
+
+            <div
+              class="method-card paypal-card"
+              [class.selected]="selectedMethod === 'paypal'"
+              (click)="selectMethod('paypal')"
+            >
+              <div class="method-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#1E1E1E"
+                  stroke-width="2.5"
+                  width="28"
+                  height="28"
+                >
+                  <rect x="1" y="4" width="22" height="16" rx="3" />
+                  <line x1="1" y1="10" x2="23" y2="10" />
+                </svg>
+              </div>
+              <div>
+                <p class="method-name">CREDIT CARD (PAYPAL)</p>
+                <p class="method-desc">Secure payment with your credit or debit card</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- QR code area (visible only for VietQR) -->
+          <div *ngIf="selectedMethod === 'vietqr'" class="qr-area">
+            <div *ngIf="isLoadingQR" class="qr-loading">Generating QR code…</div>
+            <div *ngIf="qrError" class="qr-error">{{ qrError }}</div>
+
+            <ng-container *ngIf="qrCode && !isLoadingQR">
+              <!-- QR image -->
+              <div class="qr-card">
+                <div class="vietqr-brand">
+                  <span class="brand-v">V</span><span class="brand-rest">IETQR</span>
+                </div>
+                <canvas #qrCanvas class="qr-img"></canvas>
+                <div class="qr-footer">
+                  <span>napas 247</span>
+                  <span class="qr-bank">VietinBank</span>
+                </div>
+              </div>
+
+              <!-- Countdown timer (right of QR) -->
+              <div class="timer-block">
+                <p class="timer-label">Remaining payment period</p>
+                <p class="timer-value" [class.urgent]="timeLeft < 60">
+                  {{ formatTime(timeLeft) }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+
+          <button
+            *ngIf="selectedMethod === 'vietqr'"
+            class="purchase-btn"
+            (click)="confirmVietQRPayment()"
+            [disabled]="isProcessing || !qrCode"
+          >
+            {{ isProcessing ? 'PROCESSING…' : 'I HAVE PAID' }}
+          </button>
+          <button
+            *ngIf="selectedMethod === 'paypal'"
+            class="purchase-btn"
+            (click)="redirectToPayPal()"
+            [disabled]="isProcessing"
+          >
+            {{ isProcessing ? 'REDIRECTING…' : 'CONTINUE TO PAYPAL' }}
+          </button>
+        </div>
+
+        <!-- ────── RIGHT PANEL: Order Summary ────── -->
+        <div class="right-panel">
+          <div class="summary-card">
+            <p class="summary-title">ORDER SUMMARY</p>
+            <div class="summary-divider"></div>
+
+            <div class="summary-items">
+              <div *ngFor="let item of orderItems" class="summary-item">
+                <img [src]="item.imageUrl || 'assets/placeholder.png'" alt="" class="item-thumb" />
+                <div class="item-meta">
+                  <p class="item-name">{{ item.title }}</p>
+                  <p class="item-qty">QTY: {{ item.quantity }}</p>
+                </div>
+                <p class="item-price">{{ formatVND(item.price * item.quantity) }}</p>
+              </div>
+            </div>
+
+            <div class="summary-divider light"></div>
+
+            <div class="summary-row">
+              <span>Total weight</span
+              ><span
+                ><b>{{ totalWeight }}kg</b></span
+              >
+            </div>
+            <div class="summary-row">
+              <span>Subtotal (excl VAT)</span
+              ><span
+                ><b>{{ formatVND(subtotal) }}</b></span
+              >
+            </div>
+            <div class="summary-row">
+              <span>VAT (10%)</span
+              ><span
+                ><b>{{ formatVND(vat) }}</b></span
+              >
+            </div>
+            <div class="summary-row">
+              <span>Shipping fee</span
+              ><span
+                ><b>{{ shippingFee === 0 ? '0đ' : formatVND(shippingFee) }}</b></span
+              >
+            </div>
+
+            <div class="summary-divider light"></div>
+
+            <div class="summary-row total-row">
+              <strong>TOTAL</strong>
+              <strong>{{ formatVND(total) }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

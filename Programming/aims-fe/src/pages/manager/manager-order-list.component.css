@@ -1,0 +1,319 @@
+.order-list-page {
+      padding: 2rem 2.5rem 3rem;
+      min-height: 100%;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.75rem;
+    }
+
+    .page-title {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #111;
+    }
+
+    .refresh-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border: none;
+      border-radius: 10px;
+      background: #111;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.65rem 1.15rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .refresh-btn:disabled,
+    .icon-btn:disabled,
+    .confirm-btn:disabled,
+    .pager-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    .load-error {
+      margin: 0 0 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      background: #fef2f2;
+      color: #b91c1c;
+      font-size: 0.9rem;
+    }
+
+    .load-hint {
+      margin: 0;
+      padding: 2rem 1.25rem;
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    .table-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 0.5rem 0;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      max-height: calc(100vh - 230px);
+      overflow-y: auto;
+      overflow-x: auto;
+    }
+
+    .order-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+    }
+
+    .order-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #fff;
+      text-align: left;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #9ca3af;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .order-table tbody td {
+      padding: 1.1rem 1.25rem;
+      font-size: 0.95rem;
+      color: #374151;
+      border-bottom: 1px solid #f5f5f5;
+      vertical-align: middle;
+    }
+
+    .col-order {
+      font-weight: 800;
+      color: #111;
+    }
+
+    .customer-email {
+      display: block;
+      color: #9ca3af;
+      font-size: 0.82rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.65rem;
+      white-space: nowrap;
+    }
+
+    .col-action {
+      width: 160px;
+      white-space: nowrap;
+    }
+
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 8px;
+      background: #f3f4f6;
+      color: #374151;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.45rem;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .icon-btn.approve {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .icon-btn.reject {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .pager {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.85rem;
+      margin-top: 1rem;
+      color: #4b5563;
+      font-size: 0.9rem;
+    }
+
+    .pager-btn {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background: #fff;
+      color: #111;
+      font-weight: 600;
+      padding: 0.45rem 0.8rem;
+      cursor: pointer;
+    }
+
+    .confirm-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(17, 24, 39, 0.45);
+      padding: 1rem;
+    }
+
+    .confirm-box,
+    .detail-box {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.24);
+    }
+
+    .confirm-box {
+      width: min(420px, 100%);
+      padding: 1.5rem;
+    }
+
+    .reject-box {
+      width: min(520px, 100%);
+    }
+
+    .confirm-message {
+      margin: 0 0 1.25rem;
+      color: #111;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .confirm-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .confirm-btn {
+      min-width: 86px;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 0.65rem 1.2rem;
+      cursor: pointer;
+    }
+
+    .confirm-btn.no {
+      background: #6b7280;
+    }
+
+    .confirm-btn.yes {
+      background: #16a34a;
+    }
+
+    .confirm-btn.reject {
+      background: #dc2626;
+    }
+
+    .reason-input {
+      width: 100%;
+      resize: vertical;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      outline: none;
+      padding: 0.8rem;
+      margin-bottom: 1.25rem;
+      font: inherit;
+      color: #111;
+    }
+
+    .reason-input:focus {
+      border-color: #111;
+    }
+
+    .detail-box {
+      width: min(760px, 100%);
+      max-height: min(82vh, 760px);
+      overflow: auto;
+      padding: 1.5rem;
+    }
+
+    .detail-header,
+    .detail-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .detail-title {
+      margin: 0;
+      color: #111;
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+      padding: 1rem;
+      border-radius: 12px;
+      background: #f9fafb;
+    }
+
+    .detail-wide {
+      grid-column: 1 / -1;
+    }
+
+    .items-list {
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 1rem;
+    }
+
+    .item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.95rem 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .item-row strong {
+      color: #111;
+      font-size: 0.95rem;
+    }
+
+    .item-row span {
+      color: #6b7280;
+      font-size: 0.86rem;
+    }
+
+    .detail-footer {
+      padding-top: 0.25rem;
+    }
+
+    .detail-actions {
+      display: flex;
+      gap: 0.65rem;
+    }

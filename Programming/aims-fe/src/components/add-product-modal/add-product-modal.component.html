@@ -1,0 +1,236 @@
+<div class="modal-backdrop" (click)="onBackdropClick($event)">
+      <div class="modal-panel" role="dialog" aria-labelledby="add-product-title">
+        <header class="modal-header">
+          <div>
+            <h2 id="add-product-title" class="modal-title">
+              {{ mode() === 'edit' ? 'UPDATE PRODUCT' : 'ADD NEW PRODUCT' }}
+            </h2>
+            <p class="modal-subtitle">
+              {{
+                mode() === 'edit'
+                  ? 'Update product details in the inventory.'
+                  : 'Provide product details to add to the inventory.'
+              }}
+            </p>
+          </div>
+          <button type="button" class="close-btn" (click)="close()" aria-label="Close">
+            <span nz-icon nzType="close" nzTheme="outline"></span>
+          </button>
+        </header>
+
+        <form class="modal-body" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <p class="section-label">COMMON INFORMATION</p>
+
+          <div class="form-grid">
+            <label class="field">
+              <span class="label">TITLE</span>
+              <input type="text" formControlName="title" />
+            </label>
+            <label class="field">
+              <span class="label">BARCODE</span>
+              <input type="text" formControlName="barcode" />
+            </label>
+
+            <label class="field">
+              <span class="label">ORIGINAL VALUE</span>
+              <input type="number" formControlName="originalValue" min="0" step="1000" />
+            </label>
+            <label class="field">
+              <span class="label">CURRENT VALUE</span>
+              <input type="number" formControlName="currentPrice" min="0" step="1000" />
+            </label>
+
+            <label class="field">
+              <span class="label">WEIGHT (KG)</span>
+              <input type="number" formControlName="weight" min="0" step="0.01" />
+            </label>
+            <label class="field">
+              <span class="label">LENGTH (CM)</span>
+              <input type="number" formControlName="length" min="0" step="0.01" />
+            </label>
+
+            <label class="field">
+              <span class="label">WIDTH (CM)</span>
+              <input type="number" formControlName="width" min="0" step="0.01" />
+            </label>
+            <label class="field">
+              <span class="label">HEIGHT (CM)</span>
+              <input type="number" formControlName="height" min="0" step="0.01" />
+            </label>
+
+            <label class="field">
+              <span class="label">STOCK</span>
+              <input type="number" formControlName="stockQuantity" min="0" step="1" />
+            </label>
+            <label class="field">
+              <span class="label">STATUS</span>
+              <input type="text" formControlName="status" />
+            </label>
+
+            <label class="field field-full">
+              <span class="label">DESCRIPTION</span>
+              <textarea formControlName="generalDescription" rows="3"></textarea>
+            </label>
+
+            <label class="field">
+              <span class="label">CATEGORY</span>
+              <select formControlName="productType">
+                <option value="" disabled>Select category</option>
+                @for (t of productTypes; track t.value) {
+                  <option [value]="t.value">{{ t.label }}</option>
+                }
+              </select>
+            </label>
+
+            <div class="field field-full image-field">
+              <span class="label">PRODUCT IMAGE</span>
+              <div class="image-upload-row">
+                <input
+                  #imageFileInput
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  class="file-input-hidden"
+                  (change)="onImageFileSelected($event)"
+                  [disabled]="uploadingImage()"
+                />
+                <button
+                  type="button"
+                  class="upload-btn"
+                  (click)="imageFileInput.click()"
+                  [disabled]="uploadingImage()"
+                >
+                  {{ uploadingImage() ? 'Uploading…' : 'Choose from device' }}
+                </button>
+                @if (form.controls.imageUrl.value) {
+                  <img
+                    [src]="form.controls.imageUrl.value"
+                    alt="Product preview"
+                    class="image-preview"
+                  />
+                }
+              </div>
+              <input
+                type="text"
+                formControlName="imageUrl"
+                placeholder="Or paste image URL (https://...)"
+              />
+            </div>
+          </div>
+
+          @if (selectedType()) {
+            <p class="section-label section-label-detail">
+              DETAIL INFORMATION (EXAMPLE {{ detailLabel() }})
+            </p>
+
+            <div class="form-grid">
+              @if (selectedType() === 'BOOK' || selectedType() === 'NEWSPAPER') {
+                <label class="field">
+                  <span class="label">PUBLICATION DATE</span>
+                  <input type="date" formControlName="publicationDate" />
+                </label>
+                <label class="field">
+                  <span class="label">LANGUAGE</span>
+                  <input type="text" formControlName="language" />
+                </label>
+                <label class="field field-full">
+                  <span class="label">PUBLISHER</span>
+                  <input type="text" formControlName="publisher" />
+                </label>
+              }
+
+              @if (selectedType() === 'BOOK') {
+                <label class="field">
+                  <span class="label">COVER TYPE</span>
+                  <input type="text" formControlName="coverType" />
+                </label>
+                <label class="field">
+                  <span class="label">NUMBER OF PAGES</span>
+                  <input type="number" formControlName="nbPages" min="1" />
+                </label>
+                <label class="field field-full">
+                  <span class="label">GENRE</span>
+                  <input type="text" formControlName="genre" />
+                </label>
+              }
+
+              @if (selectedType() === 'NEWSPAPER') {
+                <label class="field">
+                  <span class="label">EDITOR IN CHIEF</span>
+                  <input type="text" formControlName="editorInChief" />
+                </label>
+                <label class="field">
+                  <span class="label">ISSUE NUMBER</span>
+                  <input type="text" formControlName="issueNumber" />
+                </label>
+                <label class="field">
+                  <span class="label">FREQUENCY</span>
+                  <input type="text" formControlName="publicationFrequency" />
+                </label>
+                <label class="field">
+                  <span class="label">ISSN</span>
+                  <input type="text" formControlName="issn" />
+                </label>
+              }
+
+              @if (selectedType() === 'CD' || selectedType() === 'DVD') {
+                <label class="field">
+                  <span class="label">RELEASE DATE</span>
+                  <input type="date" formControlName="releaseDate" />
+                </label>
+              }
+
+              @if (selectedType() === 'CD') {
+                <label class="field">
+                  <span class="label">ARTISTS</span>
+                  <input type="text" formControlName="artists" />
+                </label>
+                <label class="field">
+                  <span class="label">RECORD LABEL</span>
+                  <input type="text" formControlName="recordLabel" />
+                </label>
+              }
+
+              @if (selectedType() === 'DVD') {
+                <label class="field">
+                  <span class="label">DISC TYPE</span>
+                  <input type="text" formControlName="discType" />
+                </label>
+                <label class="field">
+                  <span class="label">DIRECTOR</span>
+                  <input type="text" formControlName="director" />
+                </label>
+                <label class="field">
+                  <span class="label">RUNTIME (MIN)</span>
+                  <input type="number" formControlName="runtime" min="1" />
+                </label>
+                <label class="field">
+                  <span class="label">STUDIO</span>
+                  <input type="text" formControlName="studio" />
+                </label>
+                <label class="field field-full">
+                  <span class="label">SUBTITLES</span>
+                  <input type="text" formControlName="subtitles" />
+                </label>
+              }
+            </div>
+          }
+
+          @if (errorMessage()) {
+            <p class="error-msg">{{ errorMessage() }}</p>
+          }
+
+          <footer class="modal-footer">
+            <button type="button" class="btn-secondary" (click)="close()">Cancel</button>
+            <button type="submit" class="btn-primary" [disabled]="form.invalid || submitting() || loading()">
+              {{
+                submitting()
+                  ? 'Saving...'
+                  : mode() === 'edit'
+                    ? 'Save changes'
+                    : 'Save product'
+              }}
+            </button>
+          </footer>
+        </form>
+      </div>
+    </div>

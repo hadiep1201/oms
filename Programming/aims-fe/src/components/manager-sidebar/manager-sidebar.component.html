@@ -1,0 +1,27 @@
+<aside class="manager-sidebar" [class.collapsed]="collapsed()">
+      <button
+        type="button"
+        class="toggle-btn"
+        (click)="toggle()"
+        [attr.aria-label]="collapsed() ? 'Expand menu' : 'Collapse menu'"
+      >
+        <span nz-icon [nzType]="collapsed() ? 'menu-unfold' : 'menu-fold'" nzTheme="outline"></span>
+      </button>
+
+      <nav class="sidebar-nav">
+        @for (item of navItems; track item.route) {
+          <a
+            class="nav-item"
+            [routerLink]="item.route"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="item.route === '/manager' ? { exact: true } : { exact: false }"
+            [attr.title]="collapsed() ? item.label : null"
+          >
+            <span nz-icon [nzType]="item.icon" nzTheme="outline" class="nav-icon"></span>
+            @if (!collapsed()) {
+              <span class="nav-label">{{ item.label }}</span>
+            }
+          </a>
+        }
+      </nav>
+    </aside>
