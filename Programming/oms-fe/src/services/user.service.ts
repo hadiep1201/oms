@@ -28,7 +28,7 @@ export interface UpdateUserRequest {
 })
 export class UserService {
 
-  private apiUrl = 'http://localhost:8080/aims/api/admin/users';
+  private apiUrl = 'http://localhost:8080/oms/api/admin/users';
 
   constructor(private http: HttpClient) { }
 

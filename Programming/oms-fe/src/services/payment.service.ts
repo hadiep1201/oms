@@ -23,11 +23,11 @@ interface PaymentCompletionResponse {
   providedIn: 'root',
 })
 export class PaymentService {
-  private readonly baseUrl = 'http://localhost:8080/aims/api/orders';
+  private readonly baseUrl = 'http://localhost:8080/oms/api/orders';
 
   constructor(private http: HttpClient) {}
 
-  /** POST /aims/api/orders/{orderId}/payments/vietqr — generate QR code */
+  /** POST /oms/api/orders/{orderId}/payments/vietqr — generate QR code */
   generateVietQR(orderId: number): Observable<any> {
     return this.http
       .post<ApiResponse<PaymentInitiationResponse>>(`${this.baseUrl}/${orderId}/payments`, {
@@ -42,7 +42,7 @@ export class PaymentService {
   }
 
   /**
-   * POST /aims/api/orders/{orderId}/payments/vietqr/simulate-callback
+   * POST /oms/api/orders/{orderId}/payments/vietqr/simulate-callback
    * Simulates receiving a VietQR callback (replaces the manual Thunder Client step).
    * The backend triggers VietQR's Test Callback; VietQR then calls our transaction-sync,
    * which records the payment. The amount is read server-side from the order's invoice,
@@ -66,7 +66,7 @@ export class PaymentService {
       );
   }
 
-  /** POST /aims/api/orders/{orderId}/payments/paypal — create PayPal order, returns redirect URL */
+  /** POST /oms/api/orders/{orderId}/payments/paypal — create PayPal order, returns redirect URL */
   createPayPalPayment(orderId: number): Observable<any> {
     return this.http
       .post<ApiResponse<PaymentInitiationResponse>>(`${this.baseUrl}/${orderId}/payments`, {
@@ -82,7 +82,7 @@ export class PaymentService {
       );
   }
 
-  /** POST /aims/api/orders/{orderId}/payments/paypal/capture */
+  /** POST /oms/api/orders/{orderId}/payments/paypal/capture */
   capturePayPalPayment(orderId: number, token: string): Observable<ApiResponse<PayOrderResponse>> {
     return this.http
       .post<ApiResponse<PaymentCompletionResponse>>(
@@ -97,7 +97,7 @@ export class PaymentService {
       );
   }
 
-  /** POST /aims/api/orders/{orderId}/finalize-payment */
+  /** POST /oms/api/orders/{orderId}/finalize-payment */
   finalizePayment(orderId: number): Observable<ApiResponse<PayOrderResponse>> {
     return this.http.post<ApiResponse<PayOrderResponse>>(
       `${this.baseUrl}/${orderId}/finalize-payment`,

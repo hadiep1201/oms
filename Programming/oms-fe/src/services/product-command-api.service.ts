@@ -18,8 +18,8 @@ import {
 export class ProductCommandApiService {
   private http = inject(HttpClient);
   private readonly backendOrigin = 'http://localhost:8080';
-  private readonly apiUrl = `${this.backendOrigin}/aims/api/products`;
-  private readonly filesApiUrl = `${this.backendOrigin}/aims/api/files`;
+  private readonly apiUrl = `${this.backendOrigin}/oms/api/products`;
+  private readonly filesApiUrl = `${this.backendOrigin}/oms/api/files`;
 
   createProduct(request: CreateProductRequest): Observable<ApiResponse<ProductResponse>> {
     return this.http.post<ApiResponse<ProductResponse>>(this.apiUrl, request);

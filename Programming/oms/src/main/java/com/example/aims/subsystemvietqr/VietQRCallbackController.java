@@ -52,7 +52,7 @@ public class VietQRCallbackController {
     boolean validateToken;
 
     /**
-     * VietQR GET TOKEN - path: /aims/api/token_generate
+     * VietQR GET TOKEN - path: /oms/api/token_generate
      */
     @PostMapping(value = "/api/token_generate", produces = MediaType.APPLICATION_JSON_VALUE)
     public String handleTokenRequest(

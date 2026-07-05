@@ -14,7 +14,7 @@ import { AuthService } from './auth.service';
 export class ManagerOrderService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
-  private readonly apiUrl = 'http://localhost:8080/aims/api/manager/orders';
+  private readonly apiUrl = 'http://localhost:8080/oms/api/manager/orders';
 
   getPendingOrders(page = 0, size = 30): Observable<ApiResponse<ManagerOrderPageResponse>> {
     return this.http.get<ApiResponse<ManagerOrderPageResponse>>(

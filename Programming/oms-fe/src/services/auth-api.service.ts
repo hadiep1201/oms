@@ -11,7 +11,7 @@ import { ApiResponse, LoginRequest, LoginResponse } from '../schemas/auth.schema
 @Injectable({ providedIn: 'root' })
 export class AuthApiService {
   private http = inject(HttpClient);
-  private readonly authApiUrl = 'http://localhost:8080/aims/api/auth';
+  private readonly authApiUrl = 'http://localhost:8080/oms/api/auth';
 
   login(request: LoginRequest): Observable<ApiResponse<LoginResponse>> {
     return this.http.post<ApiResponse<LoginResponse>>(`${this.authApiUrl}/login`, request);

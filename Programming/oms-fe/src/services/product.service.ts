@@ -30,7 +30,7 @@ export class ProductService {
   private commandApi = inject(ProductCommandApiService);
   private deleteQuotaService = inject(DeleteQuotaService);
   private authService = inject(AuthService);
-  private readonly apiUrl = 'http://localhost:8080/aims/api/products';
+  private readonly apiUrl = 'http://localhost:8080/oms/api/products';
 
   getProducts(): Observable<ManagerProduct[]> {
     return this.http

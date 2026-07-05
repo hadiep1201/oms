@@ -8,7 +8,7 @@ import { ApiResponse, CartItem, Product, StockValidationResponse } from '../sche
 })
 export class CartService {
   private http = inject(HttpClient);
-  private readonly orderApiUrl = 'http://localhost:8080/aims/api/orders';
+  private readonly orderApiUrl = 'http://localhost:8080/oms/api/orders';
   private cartItemsSignal = signal<CartItem[]>([]);
 
   readonly items = this.cartItemsSignal.asReadonly();

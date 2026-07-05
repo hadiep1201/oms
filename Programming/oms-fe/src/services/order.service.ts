@@ -17,7 +17,7 @@ import {
 export class OrderService {
   private http = inject(HttpClient);
   // Cập nhật base url với endpoint của backend.
-  private apiUrl = 'http://localhost:8080/aims/api/orders';
+  private apiUrl = 'http://localhost:8080/oms/api/orders';
 
   validateStock(items: OrderItemRequest[]): Observable<ApiResponse<StockValidationResponse>> {
     return this.http.post<ApiResponse<StockValidationResponse>>(`${this.apiUrl}/validate-stock`, items);
